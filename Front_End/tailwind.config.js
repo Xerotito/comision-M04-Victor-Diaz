@@ -2,7 +2,13 @@
 export default {
     content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
     theme: {
-        extend: {},
+        screens: {
+            sm : '350px',
+            md : '768px',
+            lg : '976px',
+            xl : '1280px',
+            xxl: '1536px',
+        },
     },
     daisyui: {
         themes: ['light', 'dark', 'coffee'],
