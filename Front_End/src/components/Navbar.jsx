@@ -1,21 +1,17 @@
-/* Barra de navegación la usamos se comparte en todas las vistas */
+/* Barra de navegación se comparte en todas las vistas */
 
-import { userStore } from '../store'
 import ChangeTheme from './ChangeTheme'
+import useChangeTheme from '../hooks/useChangeTheme'
 
 export default function Navbar() {
 
-    /**
-     * Traemos el theme fijado por el usuario del globalStore, en base a esto cambiaremos los estilos
-     * del logo en el navbar ya que es una imagen
-     */
-    const { theme } = userStore()
-
+    //CustomHook que se encarga de alternar entre tema dark/light    
+    const { theme, toggleTheme } = useChangeTheme()
 
     return (
         <nav className={`
-        navbar md:flex md:justify-center
-        ${theme === 'light' ? 'nav_light' : 'nav_dark'}
+        navbar md:flex md:justify-center h-[100px]
+        ${theme === 'light' ? 'nav_light'  : 'nav_dark'}
         `}>
             <div className={`
             container-logo 
@@ -26,7 +22,7 @@ export default function Navbar() {
                 className='w-[120px] md:w-[200px] md:justify-self-center' 
                 src={theme === 'light' ? '/logo_black.png' : '/logo_white.png'} 
                 alt="logo de la app" />
-                <span className='font-mono font-extrabold italic text-base-content  ml-1 mt-2 hidden sm:block sm:text-xs md:text-sm 
+                <span className='font-mono font-extrabold italic text-base-content ml-1 mt-2 hidden sm:block sm:text-xs md:text-sm 
                 bg-cyan-200/40 p-[2px]'>Compartiendo viajes con amigos</span>
             </div>
             <div className='
@@ -34,8 +30,11 @@ export default function Navbar() {
             absolute right-0 mr-10
             '>   
             <button className='btn text-xl font-mono mr-6'>Login</button>
-            <button className='btn rounded-full w-12'><ChangeTheme/></button>
-
+            <button 
+            className='btn rounded-full w-12'
+            onClick={toggleTheme}>
+                <ChangeTheme theme={theme}/>
+            </button>
             </div>
         </nav>
     )

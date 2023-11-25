@@ -9,7 +9,7 @@ import { create } from 'zustand'
 const theme = document.querySelector('html').getAttribute('data-theme')
 
 const useStore = create(set=>({
-    theme
+
 }))
 
 export default useStore

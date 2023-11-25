@@ -7,5 +7,5 @@
 }
 
 .nav_light {
-    @apply bg-[url('/bg_light.png')] bg-contain
+    @apply bg-[url('/bg_light.png')] bg-contain bg-bottom
 }
