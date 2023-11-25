@@ -1,5 +1,5 @@
 import { Route,Routes } from 'react-router-dom'
-import { Posteos, Login } from '../src/views'
+import { Posteos, Login} from '../views'
 
 
 export default function AppRouter() {

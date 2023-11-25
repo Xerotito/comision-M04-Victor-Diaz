@@ -1,27 +1,47 @@
 /* Barra de navegación la usamos se comparte en todas las vistas */
-import { Icon } from '@iconify/react' 
+
+import { userStore } from '../store'
+import ChangeTheme from './ChangeTheme'
 
 export default function Navbar() {
 
+    /**
+     * Traemos el theme fijado por el usuario del globalStore, en base a esto cambiaremos los estilos
+     * del logo en el navbar ya que es una imagen
+     */
+    const { theme } = userStore()
+
 
     return (
-        <nav className='navbar bg-base-100 md:flex md:justify-center'>
-            <div className='
+        <nav className={`
+        navbar md:flex md:justify-center
+        ${theme === 'light' ? 'nav_light' : 'nav_dark'}
+        `}>
+            <div className={`
             container-logo 
-            grid 
-            border border-white sm:border-none 
-            '>
-                <img src="./logo_white.png" alt="logo de la app" className='w-[120px] md:w-[200px] md:justify-self-center' />
-                <span className='font-mono italic text-content ml-1 hidden sm:block sm:text-xs md:text-sm '>Compartiendo viajes con amigos</span>
+            grid p-1 sm:border-none
+            ${ theme === 'light' ? 'border-2 border-black' : 'border-2 border-white' }
+            `}>
+                <img 
+                className='w-[120px] md:w-[200px] md:justify-self-center' 
+                src={theme === 'light' ? '/logo_black.png' : '/logo_white.png'} 
+                alt="logo de la app" />
+                <span className='font-mono font-extrabold italic text-base-content  ml-1 mt-2 hidden sm:block sm:text-xs md:text-sm 
+                bg-cyan-200/40 p-[2px]'>Compartiendo viajes con amigos</span>
             </div>
             <div className='
             container-profile_buttons 
             absolute right-0 mr-10
-            grid        
-            '>
-        
+            '>   
+            <button className='btn text-xl font-mono mr-6'>Login</button>
+            <button className='btn rounded-full w-12'><ChangeTheme/></button>
 
             </div>
         </nav>
     )
 }
+
+
+// container-logo 
+// grid 
+// border border-white sm:border-none 
