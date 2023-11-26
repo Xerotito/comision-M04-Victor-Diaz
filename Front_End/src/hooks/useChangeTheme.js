@@ -1,15 +1,15 @@
 /**
- * Custom hook que se encarga de cambiar de tema dark a light y almacenarlo en el localStorage
+ * CustomHook que se encarga de alternar entre tema  dark/light y almacenarlo en el localStorage
  */
 
 import { useEffect, useState } from 'react'
 
 export default function useChangeTheme() {
 
-    //si en localStorage se encuentra theme almacenado lo toma y lo setea en el estado, si no existe lo setea en light.
+    //Si en localStorage se encuentra theme almacenado lo setea en el estado, si no existe lo setea en light.
     const [theme, setTheme] = useState(localStorage.getItem('theme') ? localStorage.getItem('theme') : 'light')
 
-    //Carga el tema al entrar a la pagina desde el localStorage y también cuando cambia el estado
+    //Setea el theme en localStorage y cambiar la etiqueta que cambia el tema en general (elemento html)
     useEffect(() => {
         localStorage.setItem('theme', theme)
         document.querySelector('html').setAttribute('data-theme', theme)
