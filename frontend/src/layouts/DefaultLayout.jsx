@@ -4,13 +4,15 @@
  * debe utilizarse como un provider envolviendo los componentes que queremos que lo utilicen.
  */
 
-import Navbar from '../components/Navbar';
+import { Header } from '../components'
 
 export default function DefaultLayout({ children }) {
     return (
-        <main>
-            <Navbar/>
-            {children}
-        </main>
+        <>
+            <Header />
+            <main>
+                {children}
+            </main>
+        </>
     )
 }
