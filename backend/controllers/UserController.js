@@ -29,17 +29,19 @@ UserController.createUser = async (req,res) => {
         })
         const createUserDB = await newUser.save() // fn mongoose para guardar en su bd
         
-        const token = generateJWT(createUserDB._id, createUserDB.username) //JWT para manejo de sesión en el front
-
-        res.status(200).json({ token, createUserDB }) //Respuesta si se inserto usuario en DB
+        //Almacenamos los datos que enviaremos al front (saca password y v_)
+        const user = {uid: createUserDB._id, username, email, avatarURL}        
+        const token = generateJWT(createUserDB._id, createUserDB.username) //creamos JWT para manejo de sesión en el front
+        res.status(201).json({ token, user })                              //Respuesta si se inserto usuario en DB
     } catch (err) {
         /**
          *Dado que al validador unique del Schema no se le puede asignar un texto personalizado,
-         *lo evaluamos en el catch (Hay un biblioteca que soluciona esto pero preferimos hacerlo manual)
+         *lo evaluamos en el catch (Hay un biblioteca que soluciona esto pero preferí hacerlo manual)
         */
+        console.log(err)
         err.code === 11000 
-        ? res.status(500).json(`'${Object.values(err.keyValue)}', ya se encuentra registrado`)
-        : res.status(500).json(err) //Respuesta si hay error
+        ? res.status(401).json(`'${Object.values(err.keyValue)}', ya se encuentra registrado`)
+        : res.status(500).json(err) //Respuesta si hay error de otro tipo
     }
 }
 
@@ -49,18 +51,27 @@ UserController.loginUser = async (req,res) => {
         //Recibimos los datos del formulario de login del frontend
         const { email, password } = req.body
         
-        //Buscamos por el email en la bd
-        const user = await User.findOne({email})
-        if(!user) return res.status(400).json('Usuario o password incorrecto')           //Si el email no se encuentra
+        //Buscamos por el email en la bd no retornamos password y versión
+        const userFound = await User.findOne({email})
+        if(!userFound) return res.status(400).json('Usuario incorrecto')           //Si el email no se encuentra
         
         //Si el email es encontrado compara el password del usuario recibido con el encontrado
-        const validPassword = await bcrypt.compareSync(password, user.password)
-        if(!validPassword) return res.status(400).json('Usuario o password incorrecto') //Si la contraseña no coincide
-
-        res.status(200).json(user)                                                      //Si coincide usuario y contraseña
+        const validPassword = await bcrypt.compareSync(password, userFound.password)
+        if(!validPassword) return res.status(400).json('Password incorrecto')       //Si la contraseña no coincide
+ 
+        //Almacenamos los datos que enviaremos al front (saca password y v_)
+        const user = {
+            uid     : userFound._id,
+            username: userFound.username,
+            email,
+            avatarURL: userFound.avatarURL,
+        }
+        const token = generateJWT(userFound._id, userFound.username)    //creamos JWT para manejo de sesión en el front
+        res.status(200).json({token, user})                             //Si coincide usuario y contraseña
 
     } catch (err) {
-        res.status(500).json('hubo un error',err)
+        console.log(err)
+        res.status(500).json('error interno')
     }
 }
 
