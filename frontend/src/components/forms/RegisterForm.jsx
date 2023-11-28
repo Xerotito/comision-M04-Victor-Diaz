@@ -1,15 +1,29 @@
-import { useState } from 'react'
+
+import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { Icon } from '@iconify/react'
+import { useAuthForm } from '../../hooks'
+
 
 export default function RegisterForm() {
+    //Usamos useRef para manejar los valores de los inputs (hay varias maneras en react)
+    const formRegister = useRef(null)
 
-    const [passwordVisible, setPasswordVisible] = useState(false);
-
-    const togglePasswordVisibility = () => setPasswordVisible(prev => !prev)
-
+    /**
+     * Custom hook que se encarga de los formularios de autentificación, realiza validaciones de campos
+     * y si todo esta ok almacena el token de sesión en el storage.
+     * Recibe por parámetro la referencia del formulario y la url de la petición
+     */
+    const { passwordVisible, togglePasswordVisibility, registerUser } = useAuthForm(
+        formRegister,
+        '/user/register',
+    )
+    
     return (
-        <form className='
+        <form 
+        onSubmit={registerUser}
+        ref    = {formRegister}
+        className='
         form-control
         w-full
         p-6 bg-content shadow-md 
@@ -31,11 +45,11 @@ export default function RegisterForm() {
                         Nombre de usuario:
                     </span>
                 </label>
-                <input type='text' className='w-full input input-sm input-bordered '/>
+                <input type='text' name='username' className='w-full input input-sm input-bordered '/>
                 <label className='label'>
                     <span className='label-text font-semibold'>Email:</span>
                 </label>
-                <input type='text' className='w-full input input-sm input-bordered'
+                <input type='text' name='email' className='w-full input input-sm input-bordered'
                 />
                 <label className='label'>
                     <span className='label-text font-semibold'>Password:</span>
@@ -53,11 +67,11 @@ export default function RegisterForm() {
                             className='bg-neutral-content rounded-sm'
                         />
                     </button>
-                    <input type={passwordVisible ? 'text' : 'password'} className='w-full input input-sm input-bordered '
+                    <input type={passwordVisible ? 'text' : 'password'} name='password' className='w-full input input-sm input-bordered '
                     />
                 </div>
             </div>
-            <button className='btn btn-sm sm:btn-md btn-info w-24 mt-4 '> Enviar </button>
+            <button type='submit' className='btn btn-sm sm:btn-md btn-info w-24 mt-4'> Enviar </button>
             <p className='sm:mt-2'> ¿Ya tienes cuenta?
                 <Link to={'/login'} className='text-lg hover:text-blue-800 ml-2'>Inicia Sesión </Link>
             </p>

@@ -3,13 +3,15 @@
  * de React no se necesita envolver la app en un provider =)
  */
 
+/* Almacena los datos del usuario y token, y como es un estado al cambiar podemos realizar acciones */
+
 import { create } from 'zustand'
 
-//Accedemos al tema que a seleccionado el usuario y lo guardamos en el store
-const theme = document.querySelector('html').getAttribute('data-theme')
+const useStore = create((set) => ({
+    user : {},
+    userStatus:'checking',  // 'authenticated', 'not-authenticated', 'checking'
 
-const useStore = create(set=>({
-
+    onLogin: (userData) => set(state => ({user: userData, userStatus: 'authenticated' }))
 }))
 
 export default useStore
