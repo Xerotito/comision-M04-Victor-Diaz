@@ -10,7 +10,7 @@ export default function DefaultLayout({ children }) {
     return (
         <>
             <Header />
-            <main>
+            <main >
                 {children}
             </main>
         </>

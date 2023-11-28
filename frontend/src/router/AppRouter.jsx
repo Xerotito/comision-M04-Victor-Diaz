@@ -1,12 +1,13 @@
 import { Route,Routes } from 'react-router-dom'
-import { Posteos, Login} from '../views'
+import { AuthForms, Posteos,  } from '../views'
 
 
 export default function AppRouter() {
     return (
         <Routes>
-            <Route path="/*" element={<Posteos />}/>
-            <Route path="/login" element={<Login />}/>
+            <Route path='/*' element={<Posteos />} />
+            <Route path='/login' element={<AuthForms />} />
+            <Route path='/register' element={<AuthForms />}  />
         </Routes>
     )
 }
