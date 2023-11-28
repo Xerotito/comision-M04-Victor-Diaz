@@ -13,10 +13,12 @@ export default function AuthForms() {
     return (
         <div className='view w-full h-full flex justify-center'>
             <div className={`
-            container w-[90%] max-w-[50rem] rounded-md ring-2
-            ${theme === 'light' ? ' ring-gray-800/75': ' ring-gray-100/10 shadow-xl'}
-            `}>
-                <LoginForm />
+            container w-[90%] max-w-[50rem] mt-[8%] rounded-md ring-2
+            ${theme === 'light'? 'ring-gray-700/50': 'ring-gray-200/10 shadow-xl'}
+            relative
+            `}
+            >
+                {route === '/login' ? <LoginForm /> : <RegisterForm />}
             </div>
         </div>
     ) 
