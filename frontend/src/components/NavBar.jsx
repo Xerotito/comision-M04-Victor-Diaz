@@ -1,11 +1,16 @@
+/**
+ * Barra de navegación contiene la foto del avatar el nombre y menu de navegación solo es visible cuando el usuario esta logueado
+ */
 import { Avatar } from './buttons';
 
 export default function NavBar({ user }) {
-    let { username, avatarURL } = user
-    if (!avatarURL) avatarURL = 'default_avatar.png'
+
+    //información del usuario en sesión
+    let { username, avatarURL } = user 
+    if (!avatarURL) avatarURL = 'default_avatar.png' //Si el usuario no tiene una imagen definida de avatar cargamos la default
 
     return (
-        <nav className='navbar flex justify-center'>
+        <nav className='navbar flex justify-center bg-base-300'>
             <div className='nav-container w-[98%] border border-gray-400 rounded-md shadow-lg relative'>
                 <Avatar avatar={avatarURL} />
                 <div className='flex items-center w-full'>
@@ -24,6 +29,3 @@ export default function NavBar({ user }) {
         </nav>
     )
 }
-
-
-{/*                 <h2 className='btn btn-ghost text-xl pointer-events-none'>Bienvenido</h2>*/}

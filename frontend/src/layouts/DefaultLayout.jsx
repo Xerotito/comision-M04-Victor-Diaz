@@ -8,16 +8,16 @@ import { Header, NavBar } from '../components'
 import { userStore } from '../store'
 
 
-
 export default function DefaultLayout({ children }) {   
 
-    const { user, userStatus } = userStore()
+    //Estado global datos del usuario en sesión
+    const { user, userStatus } = userStore() 
 
     return (
         <>
             <Header />
-            {userStatus === 'authenticated' && <NavBar user={user} />}
-            
+            {/* Navbar solo disponible si hay usuario en sesión */}
+            {userStatus === 'authenticated' && <NavBar user={user} />}             
             <main>{children}</main>
         </>
     )
