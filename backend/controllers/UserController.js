@@ -4,9 +4,9 @@
  */
 
 //Modelo que usaremos para crear usuario en mongoDB, contiene los métodos para realizar operaciones en la bd
-const User        = require('../models/User')  //
-const bcrypt      = require ('bcrypt')
-const generateJWT = require('../libs/jwt')
+const User           = require('../models/User')  //
+const bcrypt         = require('bcryptjs')
+const generateJWT    = require('../libs/jwt')
 const UserController = {}
 
 //REGISTER
@@ -15,9 +15,9 @@ UserController.createUser = async (req,res) => {
         //Recibimos los datos del formularios de registro del front, insertamos en la bd
         const { username, email, password, avatarURL = null } = req.body
 
-        //Encriptaremos el password por seguridad con la biblioteca bcrypt
-        const salt = await bcrypt.genSalt()
-        const hashedPassword = await bcrypt.hashSync(password, salt)
+        //Encriptaremos el password por seguridad con la biblioteca bcryptjs
+        const salt           = bcrypt.genSaltSync(10)
+        const hashedPassword = bcrypt.hashSync(password, salt)
 
         //Creamos los datos que almacenaremos en la bd
         const newUser = new User({
@@ -53,20 +53,20 @@ UserController.loginUser = async (req,res) => {
         //Buscamos por el email en la bd no retornamos password y versión
         const userFound = await User.findOne({email})
         if(!userFound) return res.status(400).json('Usuario incorrecto')           //Si el email no se encuentra
-        
+  
         //Si el email es encontrado compara el password del usuario recibido con el encontrado
-        const validPassword = await bcrypt.compareSync(password, userFound.password)
+        const validPassword = bcrypt.compareSync(password, userFound.password)
         if(!validPassword) return res.status(400).json('Password incorrecto')       //Si la contraseña no coincide
 
         //Almacenamos los datos que enviaremos al front (saca password y v_)
         const user = {
-            uid     : userFound._id,
-            username: userFound.username,
-            email,
+            uid      : userFound._id,
+            username : userFound.username,
+            email    : userFound.email,
             avatarURL: userFound.avatarURL,
         }
         const token = generateJWT(userFound._id, userFound.username, userFound.email, userFound.avatarURL)    //creamos JWT para manejo de sesión en el front
-        res.status(200).json({token, user})                             //Si coincide usuario y contraseña
+        res.status(201).json({token, user})                             //Si coincide usuario y contraseña
 
     } catch (err) {
         console.log(err)
