@@ -51,6 +51,7 @@ export default function useAuthStore() {
     }
 
     return {
+        logout,
         startLogin,
         validateUser,
     }

@@ -14,7 +14,7 @@ export default function AppRouter() {
     const { validateUser } = useAuthStore()     //Store con acciones de autentificación
     const {  user, userStatus }  = userStore()  //Store con el estado global
     useEffect( () => { validateUser() }, [] )   //Fn que carga el usuario en sesión si el token no expiro o se modifico.
-    console.log('usuario:', userStatus)
+    // console.log('usuario:', userStatus)
 
     return (
         <Routes>
