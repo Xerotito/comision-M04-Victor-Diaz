@@ -7,6 +7,7 @@ import { Navigate, Route,Routes } from 'react-router-dom'
 import { userStore } from '../store'
 import { useAuthStore } from '../hooks'
 import { AuthForms, Posteos } from '../views'
+import { Loader } from '../components/'
 
 
 export default function AppRouter() {
@@ -14,7 +15,9 @@ export default function AppRouter() {
     const { validateUser } = useAuthStore()     //Store con acciones de autentificación
     const {  user, userStatus }  = userStore()  //Store con el estado global
     useEffect( () => { validateUser() }, [] )   //Fn que carga el usuario en sesión si el token no expiro o se modifico.
-    // console.log('usuario:', userStatus)
+    // console.log(userStatus)
+
+    if (userStatus === 'checking') return <Loader/>
 
     return (
         <Routes>

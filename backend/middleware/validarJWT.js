@@ -7,7 +7,6 @@ const jwt = require('jsonwebtoken')  //Biblioteca JWT
 const validarJWT = (req, res, next) => {
     //El toquen viene por header, mediante una configuración de axios, (ver carpeta api frontend)
     const token = req.header('token')    
-    console.log(token)
     //Si el usuario no esta autenticado o expiro el token
     if(!token) return res.status(401).json({ 
         ok : false,

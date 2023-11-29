@@ -6,7 +6,7 @@ import { useAuthForm } from '../../hooks'
 
 
 export default function RegisterForm() {
-    //Usamos useRef para manejar los valores de los inputs (hay varias maneras en react)
+    //Usaremos useRef para manejar los valores de los inputs 
     const formRegister = useRef(null)
 
     /**
@@ -14,14 +14,14 @@ export default function RegisterForm() {
      * y si todo esta ok almacena el token de sesión en el storage.
      * Recibe por parámetro la referencia del formulario y la url de la petición
      */
-    const { passwordVisible, togglePasswordVisibility, registerUser } = useAuthForm(
+    const { passwordVisible, togglePasswordVisibility, actionForm } = useAuthForm(
         formRegister,
         '/user/register',
     )
     
     return (
         <form 
-        onSubmit={registerUser}
+        onSubmit={actionForm}
         ref    = {formRegister}
         className='
         form-control

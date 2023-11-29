@@ -22,17 +22,16 @@ export default function useAuthForm (form = {}, url = '') {
     const [error, setError] = useState({})
 
     //Fn que realiza la request al endPoint
-    const registerUser = async (e) => {
+    const actionForm = async (e) => {
         e.preventDefault()
         //Fn que extrae los valors de los inputs
-        const values = getInputsValues(form)
+        const values = getInputsValues(form)    
         try {
             //Realizamos request al endpoint de loguear usuarios
             const response = await requestApi.post(url, values)
             const { data } = response
             //Si el usuario fue registrado en la bd, realizamos un auto logeo
-            if (response.status === 201) {
-                console.log('usuario registrado en la bd')
+            if (response.status === 201 ) {
                 startLogin(data.user,data.token)
             }
         }catch(err){
@@ -42,7 +41,7 @@ export default function useAuthForm (form = {}, url = '') {
     }
 
     return {
-        registerUser,
+        actionForm,
         passwordVisible,
         togglePasswordVisibility,
     }

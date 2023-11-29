@@ -53,7 +53,7 @@ UserController.loginUser = async (req,res) => {
         //Buscamos por el email en la bd no retornamos password y versión
         const userFound = await User.findOne({email})
         if(!userFound) return res.status(400).json('Usuario incorrecto')           //Si el email no se encuentra
-  
+
         //Si el email es encontrado compara el password del usuario recibido con el encontrado
         const validPassword = bcrypt.compareSync(password, userFound.password)
         if(!validPassword) return res.status(400).json('Password incorrecto')       //Si la contraseña no coincide
@@ -75,7 +75,6 @@ UserController.loginUser = async (req,res) => {
 }
 
 //VALIDAR TOKEN
-
 UserController.validateToken = (req,res) => {
     // Si llegamos a este punto, el token ha sido validado correctamente por el middleware
     res.status(200).json({

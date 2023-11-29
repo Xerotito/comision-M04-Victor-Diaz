@@ -4,18 +4,21 @@
  * debe utilizarse como un provider envolviendo los componentes que queremos que lo utilicen.
  */
 
-import { Header } from '../components'
+import { Header, NavBar } from '../components'
 import { userStore } from '../store'
+
 
 
 export default function DefaultLayout({ children }) {   
 
+    const { user, userStatus } = userStore()
+
     return (
         <>
             <Header />
-            <main >
-                {children}
-            </main>
+            {userStatus === 'authenticated' && <NavBar user={user} />}
+            
+            <main>{children}</main>
         </>
     )
 }

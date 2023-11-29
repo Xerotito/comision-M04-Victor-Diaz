@@ -13,6 +13,7 @@ export default function useAuthStore() {
 
     //Validación de usuario mediante token
     const validateUser = async () => {
+        onChecking()
         const getToken = localStorage.getItem('token')
         if(!getToken) return logout()              //Si no hay token por las dudas deslogea y limpia todo
         try {
