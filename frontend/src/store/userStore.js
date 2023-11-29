@@ -11,7 +11,8 @@ const useStore = create((set) => ({
     user : {},
     userStatus:'checking',  // 'authenticated', 'not-authenticated', 'checking'
 
-    onLogin: (userData) => set(state => ({user: userData, userStatus: 'authenticated' }))
+    onLogin: (userData) => set(state => ({user: userData, userStatus: 'authenticated' })),
+    onChecking: () => set( state => ({userStatus: 'checking'}))
 }))
 
 export default useStore
