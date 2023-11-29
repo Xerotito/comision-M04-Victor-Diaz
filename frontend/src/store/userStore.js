@@ -9,10 +9,11 @@ import { create } from 'zustand'
 
 const useStore = create((set) => ({
     user : {},
-    userStatus:'checking',  // 'authenticated', 'not-authenticated', 'checking'
+    userStatus:'not-authenticated',  // 'authenticated', 'not-authenticated', 'checking'
 
-    onLogin: (userData) => set(state => ({user: userData, userStatus: 'authenticated' })),
-    onChecking: () => set( state => ({userStatus: 'checking'}))
+    saveUser: (userData) => set(state => ({ user: userData, userStatus: 'authenticated' })),
+    onChecking: () => set( state => ({ ...state.user, userStatus: 'checking' })),
+    onLogout: () => set(state => ({ user: {},userStatus: 'not-authenticated' }))
 }))
 
 export default useStore

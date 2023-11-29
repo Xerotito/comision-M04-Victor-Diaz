@@ -5,8 +5,11 @@
  */
 
 import { Header } from '../components'
+import { userStore } from '../store'
 
-export default function DefaultLayout({ children }) {
+
+export default function DefaultLayout({ children }) {   
+
     return (
         <>
             <Header />

@@ -1,9 +1,6 @@
 import { Link } from 'react-router-dom';
 
 export default function LoginForm() {
-
-
-
     return (
         <form className='
         form-control

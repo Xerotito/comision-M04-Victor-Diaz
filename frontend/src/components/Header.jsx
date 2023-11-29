@@ -3,7 +3,7 @@
 import { useChangeTheme } from '../hooks'
 import { ChangeTheme, Log_in_out } from './buttons'
 
-export default function Navbar() {
+export default function Header() {
 
     //CustomHook que se encarga de alternar entre tema dark/light    
     const { theme, toggleTheme } = useChangeTheme()

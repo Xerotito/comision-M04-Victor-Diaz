@@ -1,8 +1,8 @@
+
+
 import {  useLocation  } from 'react-router-dom'
 import { LoginForm, RegisterForm } from '../components/forms'
 import { useChangeTheme } from '../hooks'
-
-
 
 export default function AuthForms() {
     
