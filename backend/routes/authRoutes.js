@@ -6,11 +6,16 @@
 
 const userRouter = require('express').Router()
 const UserController = require('../controllers/UserController')
+const { validarJWT } = require('../middleware/validarJWT')
 
 //EndPoint registrar usuario
 userRouter.post('/register', UserController.createUser) // ./api/user/register method: POST
 
 //Endpoint loguear usuario
-userRouter.post('/login', UserController.loginUser )    // ./api/user/login
+userRouter.post('/login', UserController.loginUser )    // ./api/user/login method: POST
+
+//EndPoint que checkea el token
+
+userRouter.get('/validateToken',validarJWT, UserController.validateToken) // ./api/user/validateToken method: GET
 
 module.exports =  userRouter

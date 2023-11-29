@@ -7,7 +7,6 @@
 const User        = require('../models/User')  //
 const bcrypt      = require ('bcrypt')
 const generateJWT = require('../libs/jwt')
-
 const UserController = {}
 
 //REGISTER
@@ -31,8 +30,8 @@ UserController.createUser = async (req,res) => {
         
         //Almacenamos los datos que enviaremos al front (saca password y v_)
         const user = {uid: createUserDB._id, username, email, avatarURL}        
-        const token = generateJWT(createUserDB._id, createUserDB.username) //creamos JWT para manejo de sesión en el front
-        res.status(201).json({ token, user })                              //Respuesta si se inserto usuario en DB
+        const token = generateJWT(createUserDB._id, createUserDB.username, createUserDB.email, createUserDB.avatarURL) //creamos JWT para manejo de sesión en el front
+        res.status(201).json({ user,token})                              //Respuesta si se inserto usuario en DB
     } catch (err) {
         /**
          *Dado que al validador unique del Schema no se le puede asignar un texto personalizado,
@@ -58,7 +57,7 @@ UserController.loginUser = async (req,res) => {
         //Si el email es encontrado compara el password del usuario recibido con el encontrado
         const validPassword = await bcrypt.compareSync(password, userFound.password)
         if(!validPassword) return res.status(400).json('Password incorrecto')       //Si la contraseña no coincide
- 
+
         //Almacenamos los datos que enviaremos al front (saca password y v_)
         const user = {
             uid     : userFound._id,
@@ -66,7 +65,7 @@ UserController.loginUser = async (req,res) => {
             email,
             avatarURL: userFound.avatarURL,
         }
-        const token = generateJWT(userFound._id, userFound.username)    //creamos JWT para manejo de sesión en el front
+        const token = generateJWT(userFound._id, userFound.username, userFound.email, userFound.avatarURL)    //creamos JWT para manejo de sesión en el front
         res.status(200).json({token, user})                             //Si coincide usuario y contraseña
 
     } catch (err) {
@@ -75,7 +74,17 @@ UserController.loginUser = async (req,res) => {
     }
 }
 
+//VALIDAR TOKEN
 
-
-
+UserController.validateToken = (req,res) => {
+    // Si llegamos a este punto, el token ha sido validado correctamente por el middleware
+    res.status(200).json({
+        ok       : true,
+        msg      : 'Token válido',
+        uid      : req.uid,
+        username : req.username,
+        email    : req.email,
+        avatarURL: req.avatarURL
+    })
+}
 module.exports = UserController
