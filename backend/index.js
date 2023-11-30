@@ -9,8 +9,6 @@ const connectDB  = require('./config/connectDB')
 const authRouter = require('./routes/authRoutes')
 const postRouter = require('./routes/postRoutes')
 
-
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const app  = express()
 

@@ -7,10 +7,10 @@
 const User           = require('../models/User')  //
 const bcrypt         = require('bcryptjs')
 const generateJWT    = require('../libs/jwt')
-const UserController = {}
+const authController = {}
 
 //REGISTER
-UserController.createUser = async (req,res) => {
+authController.createUser = async (req,res) => {
     try {
         //Recibimos los datos del formularios de registro del front
         const { username, email, password, avatarURL = null } = req.body
@@ -45,7 +45,7 @@ UserController.createUser = async (req,res) => {
 }
 
 //LOGIN
-UserController.loginUser = async (req,res) => {
+authController.loginUser = async (req,res) => {
     try {
         //Recibimos los datos del formulario de login del frontend
         const { email, password } = req.body
@@ -75,7 +75,7 @@ UserController.loginUser = async (req,res) => {
 }
 
 //VALIDAR TOKEN
-UserController.validateToken = (req,res) => {
+authController.validateToken = (req,res) => {
     // Si llegamos a este punto, el token ha sido validado correctamente por el middleware
     res.status(200).json({
         ok       : true,
@@ -86,4 +86,4 @@ UserController.validateToken = (req,res) => {
         avatarURL: req.avatarURL
     })
 }
-module.exports = UserController
+module.exports = authController

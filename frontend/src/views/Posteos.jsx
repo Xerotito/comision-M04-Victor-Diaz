@@ -12,8 +12,7 @@ export default function Posteos() {
                 mt-10 gap-2
                 '>
                     <Post />
-                    <Post />          
-
+                    <Post />
                 </div>
             </div>
         </section>

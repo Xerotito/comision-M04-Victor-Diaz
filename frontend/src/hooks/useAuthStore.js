@@ -25,7 +25,10 @@ export default function useAuthStore() {
                 email    : validUser.email,
                 avatarURL: validUser.avatarURL,
             })
-        }catch(err){ console.log(err) }
+        }catch(err){
+            console.log(err)
+            return logout()
+        }
     }
     
     //Validación de token
