@@ -5,7 +5,6 @@ const mongoose = require('mongoose')
  * También usaremos las validaciones de mongoose del lado del servidor como middlewares
  */
 
-const mongoose = require('mongoose');
 
 const PostSchema = new mongoose.Schema({
     title: {

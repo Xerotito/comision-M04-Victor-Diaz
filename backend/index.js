@@ -3,10 +3,13 @@
 */
 //Importaciones
 require('dotenv').config()
+const express    = require('express')
 const cors       = require('cors')
-const express    = require('express');
-const connectDB  = require('./config/connectDB');
-const { authRouter } = require('./routes')
+const connectDB  = require('./config/connectDB')
+const authRouter = require('./routes/authRoutes')
+const postRouter = require('./routes/postRoutes')
+
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const app  = express()
@@ -20,7 +23,7 @@ app.use(express.json())
 
 //Endpoints o rutas del backend se importan desde ./routes
 app.use('/api/user',authRouter) 
-// app.use('/api/post',postsRoutes) 
+app.use('/api/post',postRouter) 
 
 
 
