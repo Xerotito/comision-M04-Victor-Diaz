@@ -28,20 +28,35 @@ PostController.createPost = async (req,res) => {
         })
     } catch (err) {
         console.log(err)
-        res.status(500).json({
-            ok: false,
-            message: 'Ocurrió un error al intentar crear la publicación',
-            err,
-        })
+        res.status(500).json(err)
+    }
+}
+
+//VER POST POR ID
+PostController.getPost = async (req, res) => {
+    try {
+        //Recibimos el id desde la barra de direcciones del navegador (params)
+        const { id } = req.params
+
+        //Ubicamos en la BD por id
+        const postFound = await Post.findById(id)
+
+        //Simplemente lo regresamos por json
+        res.status(200).json(postFound)
+    } catch (err) {
+        let message = err
+        if (err.kind === 'ObjectId') message = 'No se pudo obtener la publicación'
+        return res.status(500).json({ message, err })
     }
 }
 
 //EDITAR POST
 PostController.editPost = async (req,res) => {
-    // Recibimos los datos del formularios de edición de post del front,
-    const { id, title, description, imageURL } = req.body
-
     try {
+        // Recibimos los datos del formularios de edición de post del front,
+        const { id, title, description, imageURL } = req.body
+
+
         //Encontramos por id el post en la BD
         const foundPost = await Post.findById(id);
         
@@ -64,9 +79,10 @@ PostController.editPost = async (req,res) => {
 
 //ELIMINAR POST
 PostController.deletePost = async (req, res) => {
+    try {
     //Solo necesitamos el id del front
     const { id } = req.body    
-    try {
+    
     //Encontramos el post por id en la BD y con el mismo método de mongoose eliminamos
     await Post.findByIdAndDelete(id)
 

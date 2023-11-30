@@ -4,11 +4,17 @@
  * pudiendo fijar asi valores como el uid del usuario
  */
 
+const express    = require('express')
 const postRouter = require('express').Router()  
 const PostController = require('../controllers/PostController')
 const { validarJWT } = require('../middleware/validarJWT')
 
 
+//Ver todas las publicaciones de un usuario
+
+
+//Ver un post por id
+postRouter.get('/:id', PostController.getPost)                     //  ./api/post/:id method: GET
 
 //Endpoint crear post
 postRouter.post('/create', validarJWT, PostController.createPost) // ./api/post/create method POST
@@ -17,7 +23,7 @@ postRouter.post('/create', validarJWT, PostController.createPost) // ./api/post/
 postRouter.put('/edit', validarJWT, PostController.editPost)      // ./api/post/edit method PUT
 
 //Endpoint Eliminar publicación 
-postRouter.delete('/delete',validarJWT, PostController.deletePost)
+postRouter.delete('/delete',validarJWT, PostController.deletePost) // ./api/post/delete method DELETE
 
 
 module.exports = postRouter
