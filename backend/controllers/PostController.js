@@ -28,7 +28,7 @@ PostController.createPost = async (req,res) => {
         })
     } catch (err) {
         console.log(err)
-        res.status(400).json({
+        res.status(500).json({
             ok: false,
             message: 'Ocurrió un error al intentar crear la publicación',
             err,
@@ -59,6 +59,24 @@ PostController.editPost = async (req,res) => {
             message: 'Ocurrió un error al intentar editar la publicación',
             err
         })
+    }
+}
+
+//ELIMINAR POST
+PostController.deletePost = async (req, res) => {
+    //Solo necesitamos el id del front
+    const { id } = req.body    
+    try {
+    //Encontramos el post por id en la BD y con el mismo método de mongoose eliminamos
+    await Post.findByIdAndDelete(id)
+
+    res.status(204).json({ok: true, message: 'El post se elimino exitosamente'})
+
+    } catch (err) {
+        res.status(500).json({
+            ok:false,
+            message: 'Hubo un error al intentar eliminar el post'
+        })    
     }
 }
 

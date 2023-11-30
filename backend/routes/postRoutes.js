@@ -12,8 +12,12 @@ const { validarJWT } = require('../middleware/validarJWT')
 
 //Endpoint crear post
 postRouter.post('/create', validarJWT, PostController.createPost) // ./api/post/create method POST
+
 //Endpoint editar post
 postRouter.put('/edit', validarJWT, PostController.editPost)      // ./api/post/edit method PUT
+
+//Endpoint Eliminar publicación 
+postRouter.delete('/delete',validarJWT, PostController.deletePost)
 
 
 module.exports = postRouter
