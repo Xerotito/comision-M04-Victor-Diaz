@@ -1,5 +1,5 @@
 /**
- * Endpoints que controla todo lo relacionado con usuarios, llaman a su controlador desde ./controllers
+ * Endpoints de gestión de usuarios, llaman a su respectivo controlador desde ./controllers
  */
 
 const authRouter = require('express').Router()                   //Enrutador de express
@@ -13,7 +13,6 @@ authRouter.post('/register', UserController.createUser) // ./api/user/register m
 authRouter.post('/login', UserController.loginUser )    // ./api/user/login method: POST
 
 //EndPoint que checkea el token
-
 authRouter.get('/validateToken',validarJWT, UserController.validateToken) // ./api/user/validateToken method: GET
 
 module.exports =  authRouter

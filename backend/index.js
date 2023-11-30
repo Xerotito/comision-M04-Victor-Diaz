@@ -22,7 +22,7 @@ app.use(cors())
 app.use(express.json())
 
 //Endpoints o rutas del backend se importan desde ./routes
-app.use('/api/user',authRouter) 
+app.use('/api/user',authRouter)  
 app.use('/api/post',postRouter) 
 
 

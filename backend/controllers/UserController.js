@@ -19,14 +19,14 @@ UserController.createUser = async (req,res) => {
         const salt           = bcrypt.genSaltSync(10)
         const hashedPassword = bcrypt.hashSync(password, salt)
 
-        //Creamos los datos que almacenaremos en la bd
+        //Creamos los datos que almacenaremos en la bd con el modelo
         const newUser = new User({
             username,
             email,
             avatarURL,
             password: hashedPassword,
         })
-        const createUserDB = await newUser.save() // fn mongoose para guardar en su bd
+        const createUserDB = await newUser.save() // método mongoose para guardar en su bd
         
         //Almacenamos los datos que enviaremos al front (saca password y v_)
         const user = {uid: createUserDB._id, username, email, avatarURL}        

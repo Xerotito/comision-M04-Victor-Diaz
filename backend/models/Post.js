@@ -11,13 +11,12 @@ const PostSchema = new mongoose.Schema({
         type     : String,
         required : [true, 'El título es requerido'],
         minlength: [1, 'El título debe tener al menos 1 caracteres'],
-        maxlength: [50, 'El título no debe tener más de 100 caracteres'],
+        maxlength: [1000, 'El título no debe tener más de 1000 caracteres'],
     },
     description: {
         type     : String,
         required : [true, 'La descripción es requerida'],
-        minlength: [50, 'La descripción debe tener al menos 10 caracteres'],
-        maxlength: [1000, 'La descripción no debe tener más de 500 caracteres'],
+        maxlength: [5000, 'La descripción no debe tener más de 5000 caracteres'],
     },
     author: {
         type    : mongoose.Schema.Types.ObjectId,
