@@ -6,7 +6,7 @@ require('dotenv').config()
 const cors       = require('cors')
 const express    = require('express');
 const connectDB  = require('./config/connectDB');
-const userRouter = require('./routes/authRoutes');
+const { authRouter } = require('./routes')
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const app  = express()
@@ -18,8 +18,10 @@ connectDB()
 app.use(cors())
 app.use(express.json())
 
-//Endpoints del backend se importan desde ./routes
-app.use('/api/user',userRouter) 
+//Endpoints o rutas del backend se importan desde ./routes
+app.use('/api/user',authRouter) 
+// app.use('/api/post',postsRoutes) 
+
 
 
 //Servidor UP

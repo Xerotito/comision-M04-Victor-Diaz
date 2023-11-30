@@ -1,6 +1,6 @@
 /**
  * Controlador (acciones y lógica que suceden al llamar al endpoint) 
- * se encarga de todo lo relacionado a usuarios(crear en BD, loguear) 
+ * se encarga de todo lo relacionado a autentificación de usuarios (crear en BD, loguear y validación de token) 
  */
 
 //Modelo que usaremos para crear usuario en mongoDB, contiene los métodos para realizar operaciones en la bd
@@ -12,7 +12,7 @@ const UserController = {}
 //REGISTER
 UserController.createUser = async (req,res) => {
     try {
-        //Recibimos los datos del formularios de registro del front, insertamos en la bd
+        //Recibimos los datos del formularios de registro del front
         const { username, email, password, avatarURL = null } = req.body
 
         //Encriptaremos el password por seguridad con la biblioteca bcryptjs
