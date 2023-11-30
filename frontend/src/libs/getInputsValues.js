@@ -11,7 +11,7 @@ export default function getInputsValues(form) {
         const formElements = form.current.elements;
         // Recorremos el array que creamos en base a la referencia y solo toma los elementos inputs
         Array.from(formElements).forEach( element => {
-            if (element.tagName === 'INPUT') {
+            if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
                 // Almacena el valor del input en el objeto inputValues
                 inputValues[element.name] = element.value;
             }

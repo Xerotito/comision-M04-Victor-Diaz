@@ -45,7 +45,7 @@ export default function RegisterForm() {
                         Nombre de usuario:
                     </span>
                 </label>
-                <input type='text' name='username' className='w-full input input-sm input-bordered '/>
+                <input type='text' name='username' className='w-full input input-sm input-bordered' maxLength={10}/>
                 <label className='label'>
                     <span className='label-text font-semibold'>Email:</span>
                 </label>

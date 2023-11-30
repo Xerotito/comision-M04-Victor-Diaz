@@ -9,3 +9,13 @@
 .nav_light {
     @apply bg-[url('/bg_light.png')] bg-contain bg-bottom
 }
+
+.sub-container{
+    @apply w-[95%] lg:w-[70%] xxl:w-[60%] mt-6 justify-self-center
+}
+
+.custom-box {
+    border    : 1px solid #ccc;
+    box-shadow: 0px 0px 4px #ccc;
+}
+

@@ -1,6 +1,7 @@
 /**
  * Barra de navegación contiene la foto del avatar el nombre y menu de navegación solo es visible cuando el usuario esta logueado
  */
+import { Link } from 'react-router-dom';
 import { Avatar } from './buttons';
 
 export default function NavBar({ user }) {
@@ -20,7 +21,7 @@ export default function NavBar({ user }) {
                     w-full bg-base-200 rounded-box font-medium
                     flex justify-center
                     '>
-                        <li><a>Posts</a></li>
+                        <li><Link to={'/createPost'}>Crear post</Link></li>
                         <li><a>Mis posts</a></li>
                         <li><a>Comentarios</a></li>
                     </ul>
