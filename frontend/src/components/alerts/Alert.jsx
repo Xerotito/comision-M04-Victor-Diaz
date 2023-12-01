@@ -5,6 +5,7 @@
  * type: error || success => Tipo de alerta a renderizar
  */
 
+import { useEffect } from 'react'
 import { alertStore } from '../../store'
 import { AlertError,AlertSuccess } from './'
 
@@ -12,6 +13,9 @@ import { AlertError,AlertSuccess } from './'
 export default function Alert() {
 
     const {  message, type, onClose } = alertStore()
+
+    //Los alert se cierran y limpian luego de 5
+    useEffect(() => { setTimeout(() => onClose(), 5000)})
 
     return (
         <>

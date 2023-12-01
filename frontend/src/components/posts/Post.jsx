@@ -1,18 +1,20 @@
-export default function Post() {
+export default function Post({post}) {
+
+    const { title, shortDescription, imageURL,createdAt } = post
+    const user = post?.author?.username
+
     return (
         <article className='card md:card-side bg-base-100 shadow-xl grid'>
             <figure>
                 <img
-                    src='https://imagenes.elpais.com/resizer/6XwGH2IGBdIfkd7qAVZsKwVFXZA=/828x466/filters:focal(2372x2074:2382x2084)/cloudfront-eu-central-1.images.arcpublishing.com/prisa/R7ZWFLRRWBEMJMJ3JLORMMZZHE.jpg'
+                    src={imageURL}
                     alt='Foto de ejemplo'
                 />
             </figure>
             <div className='card-body py-4'>
-                <h2 className='card-title'>
-                    Templos, atardeceres mágicos y cuevas sagradas en Luang Prabang, la joya colonial de Laos
-                </h2>
-                <span className='text-xs'>PACO NADAL|28 NOV 2023 - 01:45 ART</span>
-                <p>Un casco antiguo de aires franceses declarado patrimonio mundial, el Palacio Real, un café junto al río Mekong y dos escapadas cercanas para sacarle el máximo partido a la ciudad más cosmopolita y turística de este país del sudeste asiático</p>
+                <h2 className='card-title'>{title}</h2>
+                <span className='text-xs uppercase'>{user} |{createdAt}</span>
+                <p>{shortDescription}</p>
                 <div className='card-actions border-2 border-black'>
                     Actions
                 </div>

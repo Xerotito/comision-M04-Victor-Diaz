@@ -5,12 +5,17 @@
 import { useState } from 'react'
 import requestApi from '../api/requestApi'              //config de axios personalizada
 import getInputsValues from '../libs/getInputsValues'   //fn que extrae los values de los inputs o textarea
-import useAlert from '../store/alertStore'
+import { alertStore } from '../store'
+import { useNavigate } from "react-router-dom";
 
 export default function usePostForm (form = {}, url = '') {
+    const navigate = useNavigate()
+
+    //Deshabilita el botón mientras se resuelve el request
+    const [disableBtn, setDisableBtn] = useState(false)
 
     //Store global para manejo del componente <Alert /> 
-    const { setAlert } =  useAlert()
+    const { setAlert } = alertStore()
 
     const actionForm = async (e) => {
         e.preventDefault()
@@ -18,23 +23,36 @@ export default function usePostForm (form = {}, url = '') {
         const values = getInputsValues(form)  
         //Arma el post a enviar al endpoints
         const post =  {
-            title      : values.title,
-            description: values.description + '' +values.post,
-            imageURL   : values.imageURL            
+            title            : values.title,
+            short_description: values.short_description,
+            description      : values.short_description + '' + values.description,
+            imageURL         : values.imageURL
         }
+    
+        setDisableBtn(true) //Deshabilitamos el botón para que no se puedan enviar multiples solicitudes
         try{
-            // const response = await requestApi.post(url,post)
-            (response.status === 200 )
-            // setAlert({message: 'El post se creo exitosamente', type: 'success'})
+            const response = await requestApi.post(url,post)
+            //Cargamos el alert con un mensaje de éxito
+            if (response.status === 201 ) {
+                setAlert({
+                    alert  : true,
+                    message: 'Post creado exitosamente',
+                    type   : 'success'
+                })
+                setDisableBtn(false)
+                return navigate('/')
+            }
         }catch(err){
-            console.log(err.Error)
+            console.log(err)
+            //Cargamos el alert con un mensaje de error
             setAlert({
-                alert  : true,
-                message: 'Hubo un error al enviar el post',
-                type   : 'error',
+                alert        : true,
+                message      : 'Hubo un error al enviar el post',
+                type         : 'error',
             })
+            setDisableBtn(false)
         } 
     }
 
-    return { actionForm }
+    return { actionForm, disableBtn }
 }

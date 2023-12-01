@@ -4,19 +4,18 @@ import { Alert } from '../components/alerts'
 import { alertStore } from '../store'
 
 
-export default function CreatePost() {
- 
+export default function CreatePost() { 
     //Manejo del formulario
     const postForm = useRef(null)
-    const { actionForm } = usePostForm(postForm, '/post/create')
+    const { actionForm, disableBtn } = usePostForm(postForm, '/post/create')
     
     //Manejo del componente alert
-    const {alert, message} = alertStore()
+    const {type, message} = alertStore()
 
     return (
         <section className='grid'>
             <div className='alert-container w-[80%] justify-self-center absolute z-10'>
-                {alert && <Alert message={message}/>}
+                { type === 'error' && <Alert message={message}/> }
             </div>
             <form className='
             createPost sub-container relative   
@@ -48,7 +47,7 @@ export default function CreatePost() {
                         Descripción
                     </span>
                     <textarea
-                        name='description'
+                        name='short_description'
                         placeholder='Este es el texto que se vera en la tarjeta de post, también se incluye en el contenido de la publicación'
                         className='textarea textarea-bordered textarea-lg w-full placeholder:text-[12px] placeholder:sm:text-base text-base'
                         maxLength={1000}
@@ -56,7 +55,7 @@ export default function CreatePost() {
                     />
                     <span className='label-text font-semibold'>Post</span>
                     <textarea
-                        name='post'
+                        name='description'
                         placeholder='Ingrese el contenido del post'
                         className='textarea textarea-bordered textarea-lg w-full placeholder:text-[12px] placeholder:sm:text-base text-base'
                         maxLength={5000}
@@ -71,7 +70,10 @@ export default function CreatePost() {
                         required
                     />
                 </div>
-                <button className='w-[80px] btn btn-success mt-2 justify-self-end'>
+                <button 
+                className='w-[80px] btn btn-success mt-2 justify-self-end'
+                disabled={disableBtn}
+                >
                     Postear
                 </button>
             </form>
