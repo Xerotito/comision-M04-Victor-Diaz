@@ -1,6 +1,8 @@
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuthForm } from '../../hooks';
+import { alertStore } from '../../store';
+import { Alert } from '../alerts'
 
 export default function LoginForm() {
 
@@ -18,6 +20,8 @@ export default function LoginForm() {
         '/user/login',
     )
 
+    //Manejo de 
+    const {message,alert } = alertStore()
 
     return (
         <form 
@@ -27,7 +31,8 @@ export default function LoginForm() {
         form-control
         w-full
         p-6 bg-content shadow-md 
-        flex flex-col
+        grid
+        relative
         '>
             <div className='
             bg-neutral text-white rounded-md 
@@ -56,6 +61,9 @@ export default function LoginForm() {
                     Regístrate
                 </Link>
             </p>
+            <div className='alert-container w-[80%] justify-self-center absolute z-10 top-0'>
+                {alert && <Alert message={message}/>}
+            </div>            
         </form>
     )
 }
