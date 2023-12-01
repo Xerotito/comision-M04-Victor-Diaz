@@ -10,8 +10,8 @@ const PostController = require('../controllers/PostController')
 const { validarJWT } = require('../middleware/validarJWT')
 
 
-//Ver todas las publicaciones de un usuario
-
+//Cargar todos las publicaciones en el index                        
+postRouter.get('/getAll', PostController.getAll)                 //   ./api/post/getAll method: GET
 
 //Ver un post por id
 postRouter.get('/:id', PostController.getPost)                     //  ./api/post/:id method: GET

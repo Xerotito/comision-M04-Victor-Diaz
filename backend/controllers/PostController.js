@@ -1,19 +1,19 @@
 const Post           = require('../models/Post')
 const PostController = {}
 
-
 //CREAR POST
 PostController.createPost = async (req,res) => {
     /**
      * Recibimos los datos del formularios de creación de post del front,
      * el author viene de la respuesta del middleware de token en req
      */
-    const { title, description, imageURL } = req.body
+    const { title, short_description, description, imageURL } = req.body
 
     try {
         //Creamos el post a insertar en la bd con el modelo
         const newPost = new Post({
             title,
+            short_description,
             description,
             author: req.uid,
             imageURL,
@@ -29,6 +29,18 @@ PostController.createPost = async (req,res) => {
     } catch (err) {
         console.log(err)
         res.status(500).json(err)
+    }
+}
+
+//OBTENER TODOS LOS POSTS
+PostController.getAll = async (req, res) => {
+    try {
+        //Simplemente busca todos los post en el documento de la BD
+        const findPost = await Post.find({},'-__v').populate('author','-password -__v')    
+        return res.status(200).json(findPost);
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json({ok:false, message: 'ocurrió un error'});
     }
 }
 
@@ -55,7 +67,6 @@ PostController.editPost = async (req,res) => {
     try {
         // Recibimos los datos del formularios de edición de post del front,
         const { id, title, description, imageURL } = req.body
-
 
         //Encontramos por id el post en la BD
         const foundPost = await Post.findById(id);
@@ -95,7 +106,5 @@ PostController.deletePost = async (req, res) => {
         })    
     }
 }
-
-
 
 module.exports = PostController
