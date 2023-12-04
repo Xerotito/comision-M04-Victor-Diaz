@@ -1,8 +1,7 @@
 /**
- * CustomHook o store que almacena las funciones de autentificación. Validación y seteo de token
- * registro login y logout de usuario, también obtiene datos de la BD si el usuario esta autenticado
- * Interactúa con el estado global almacenado en userStore()
- */
+ * Store almacena las funciones que gestionan todo lo relacionado a autentificación de usuario,
+ * esta a su vez interactúa con el estado global authStore
+*/
 
 import { userStore } from '../store'
 import requestApi from '../api/requestApi'
@@ -11,7 +10,7 @@ import requestApi from '../api/requestApi'
 export default function useAuthStore() {
     const { saveUser, onChecking, onLogout } = userStore()
 
-    //Validación de usuario mediante token
+    //VALIDACIÓN DE USUARIO (Usa validación de token)
     const validateUser = async () => {
         onChecking()
         const getToken = localStorage.getItem('token')
@@ -31,7 +30,7 @@ export default function useAuthStore() {
         }
     }
     
-    //Validación de token
+    //VALIDACIÓN DE TOKEN
     const validateToken = async () => {
         try {
             const response = await requestApi.get('/user/validateToken')
@@ -41,14 +40,14 @@ export default function useAuthStore() {
         }
     }
 
-    //Login también se invoca al registrar usuario
+    //LOGIN (se dispara al registrar usuario también)
     const startLogin = (userData, token) => {
         onChecking()
         saveUser(userData)
         localStorage.setItem('token', token)
     }
 
-    //Logout
+    //LOGOUT
     const logout = () => {
         localStorage.removeItem('token') 
         onLogout() //Limpia el estado global

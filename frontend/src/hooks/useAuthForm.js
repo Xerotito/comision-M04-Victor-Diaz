@@ -1,8 +1,6 @@
 /**
- * Hook personalizado que maneja los formularios de autentificación (register y login),
- * realiza una petición al endpoint (register o login), retorna errores y si todo esta ok, 
- * llama a la función startLogin() que a su vez setea los datos en el storeGlobal
- * sirve para ambos ya que si un registro de usuario es exitoso, realizaremos un auto login.
+ * CustomHook que maneja los formularios de autentificación (register y login), gestiona la creación y login de usuarios
+ * luego interactúa con el estado global para guardar los datos.
  */
 
 import { useState } from 'react';
@@ -11,10 +9,11 @@ import getInputsValues from '../libs/getInputsValues';  //fn que extra los valor
 import { useAuthStore } from '../hooks'                 //Store con funciones de autentificación y guardado de estadoGlobal
 import { alertStore } from '../store';
 
-export default function useAuthForm (form = {}, url = '') {
-    
+export default function useAuthForm (form = {}, url = '') {    
+
     const { startLogin } = useAuthStore()
 
+    //Manejo de errores con el componente global <Alert />
     const { setAlert } = alertStore()
 
     //Estado que sirve para visualizar el password de un input type password

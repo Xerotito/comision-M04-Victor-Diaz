@@ -1,6 +1,6 @@
 /**
- * CustomHook que se encarga de la realizas las request al backend con todo lo relacionado al CRUD de posteos
- * recibe por props la referencia del form y la url de el endpoint
+ * CustomHook que maneja las request al backend con todo lo relacionado al CRUD de posteos
+ * recibe por props la referencia del form y la url de el endpoint.
  */
 import { useState } from 'react'
 import requestApi from '../api/requestApi'              //config de axios personalizada
