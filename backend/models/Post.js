@@ -40,8 +40,16 @@ const PostSchema = new mongoose.Schema({
     createdAt: {
         type   : Date,
         default: Date.now,
-    },
+    },    
 })
+
+//Esto hace que la fecha se guarde en un formato mas estándar YYYY/MM/DD
+PostSchema.set('toJSON', {
+    transform: (doc, ret) => {
+        ret.createdAt = ret.createdAt.toISOString().slice(0, 10);
+    },
+});
+
 
 const Post = mongoose.model('Post', PostSchema)
 
