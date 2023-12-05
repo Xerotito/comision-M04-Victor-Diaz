@@ -1,5 +1,6 @@
-export { default as useAuthForm } from './useAuthForm'
-export { default as useAuthStore } from './useAuthStore'
-export { default as useChangeTheme } from './useChangeTheme'
-export { default as usePostForm } from './usePostForm'
-export { default as useGetPosts } from './useGetPosts'
+export * from './index';
+export { default as useAuthForm } from './useAuthForm';
+export { default as useAuthStore } from './useAuthStore';
+export { default as useCRUDPosts } from './useCRUDPosts';
+export { default as useChangeTheme } from './useChangeTheme';
+export { default as usePostForm } from './usePostForm';

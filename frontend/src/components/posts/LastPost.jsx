@@ -1,6 +1,6 @@
 export default function LastPost({lastPost}) {
 
-    const { title, shortDescription, imageURL,createdAt } = lastPost
+    const { title, short_description, imageURL,createdAt } = lastPost
     const user = lastPost?.author?.username
 
     return (
@@ -13,8 +13,8 @@ export default function LastPost({lastPost}) {
             </figure>
             <div className='card-body w-full lg:w-[40%]'>
                 <h2 className='card-title'>{title}</h2>
-                <p className='text-xs uppercase'>{user} | {createdAt}</p>
-                <p>{shortDescription}</p>
+                <span className='text-xs uppercase'>{user} | {createdAt}</span>
+                <p>{short_description}</p>
                 <div className='card-actions border-2 border-black'>
                     Actions
                 </div>

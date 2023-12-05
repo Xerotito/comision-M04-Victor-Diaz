@@ -1,9 +1,14 @@
+/**
+ * CustomHook que contiene las fn q se encargan del CRUD de los posteos, interactúa directamente con la BD
+ * en vez de guardar en un estado global
+ */
+
 import { useEffect, useState } from 'react'
-import requestApi from '../api/requestApi'
 import { alertStore } from '../store'
+import requestApi from '../api/requestApi'
 
 
-export default function useGetPost() {
+export default function useCRUDPost() {
 
     //Estado y variable se almacenan los posts
 
@@ -16,15 +21,15 @@ export default function useGetPost() {
         try {
             const { data } = await requestApi.get('./post/getAll')
             if ( data ) {
-                setPosts({ lastPost: data.pop(), nextPosts: data })  
+                setPosts({ lastPost: data.pop(), nextPosts: data.reverse() })  
 
             }
         } catch (err) {
-            if (err?.response?.status === 500) setAlert({
-                    alert  : true,
-                    message: 'No se pudieron cargar los post',
-                    type   : 'error',
-                })
+            setAlert({
+                alert  : true,
+                message: 'Hubo un error al cargar los posts',
+                type   : 'error',
+            })
         }
     }
 

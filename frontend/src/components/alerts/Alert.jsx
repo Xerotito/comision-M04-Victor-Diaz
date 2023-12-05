@@ -20,7 +20,7 @@ export default function Alert() {
     return (
         <>
             {type === 'success' && <AlertSuccess message={message} onClose={onClose} />}
-            {type === 'error' && <AlertError message={message} onClose={onClose} />}
+            {type === 'error'   && <AlertError message={message} onClose={onClose} />}
             {/* Agregar mas alerts si se necesita ej info, warning */}
         </>
     )

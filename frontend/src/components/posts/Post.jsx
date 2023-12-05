@@ -1,6 +1,6 @@
 export default function Post({post}) {
 
-    const { title, shortDescription, imageURL,createdAt } = post
+    const { title, show_description, imageURL, createdAt } = post
     const user = post?.author?.username
 
     return (
@@ -14,7 +14,7 @@ export default function Post({post}) {
             <div className='card-body py-4'>
                 <h2 className='card-title'>{title}</h2>
                 <span className='text-xs uppercase'>{user} |{createdAt}</span>
-                <p>{shortDescription}</p>
+                <p>{show_description}</p>
                 <div className='card-actions border-2 border-black'>
                     Actions
                 </div>
