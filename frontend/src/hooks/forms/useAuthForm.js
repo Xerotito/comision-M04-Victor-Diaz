@@ -4,10 +4,10 @@
  */
 
 import { useState } from 'react';
-import requestApi from '../api/requestApi'              //Custom config de axios para realizar dataFetching
-import getInputsValues from '../libs/getInputsValues';  //fn que extra los valores de los inputs
-import { useAuthStore } from '../hooks'                 //Store con funciones de autentificación y guardado de estadoGlobal
-import { alertStore } from '../store';
+import requestApi from '../../api/requestApi'              //Custom config de axios para realizar dataFetching
+import getInputsValues from '../../libs/getInputsValues';  //fn que extra los valores de los inputs
+import { useAuthStore } from '..'                 //Store con funciones de autentificación y guardado de estadoGlobal
+import { alertStore } from '../../store';
 
 export default function useAuthForm (form = {}, url = '') {    
 
@@ -38,14 +38,20 @@ export default function useAuthForm (form = {}, url = '') {
             }
         }catch(err){
             if(err.response) { 
-                console.log(err.response)
+                console.log(err?.response)
                 setAlert({
                     alert  : true,
-                    message: err.response.data,
+                    message: err?.response?.data,
                     type   : 'error'
                 })
             }
-            else {console.log(err)}
+            else {
+                setAlert({
+                    alert  : true,
+                    message: 'Ocurrió un error interno',
+                    type   : 'error'
+                })
+            }
         }
     }
 

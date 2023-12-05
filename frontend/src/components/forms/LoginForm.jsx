@@ -6,6 +6,9 @@ import { Alert } from '../alerts'
 
 export default function LoginForm() {
 
+        //Manejo de errores
+        const { message, alert } = alertStore()
+
     //Usaremos useRef para manejar los valores de los inputs 
     const formLogin= useRef(null)
 
@@ -20,8 +23,7 @@ export default function LoginForm() {
         '/user/login',
     )
 
-    //Manejo de 
-    const {message,alert } = alertStore()
+
 
     return (
         <form 

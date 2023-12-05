@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+
+/*///*Estilos generales\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ */
+@font-face {
+    font-family: 'bebas';
+    src        : url(fonts/BebasNeue.otf);
+    font-weight: normal;
+    font-style : normal;
+}
+
 .nav_dark {
     @apply bg-[url('/bg_dark_1.png')] bg-contain
 }
@@ -16,6 +25,6 @@
 
 .custom-box {
     border    : 1px solid #ccc;
-    box-shadow: 0px 0px 4px #ccc;
+    box-shadow: 0px 0px 5px #ccc;
 }
 

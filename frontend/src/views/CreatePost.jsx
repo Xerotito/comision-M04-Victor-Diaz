@@ -43,21 +43,11 @@ export default function CreatePost() {
                         maxLength={300}
                         required
                     />
-                    <span className='label-text font-semibold'>
-                        Descripción
-                    </span>
-                    <textarea
-                        name='short_description'
-                        placeholder='Este es el texto que se vera en la tarjeta de post, también se incluye en el contenido de la publicación'
-                        className='textarea textarea-bordered textarea-lg w-full placeholder:text-[12px] placeholder:sm:text-base text-base'
-                        maxLength={1000}
-                        required
-                    />
-                    <span className='label-text font-semibold'>Post</span>
+                    <span className='label-text font-semibold'>Descripción</span>
                     <textarea
                         name='description'
                         placeholder='Ingrese el contenido del post'
-                        className='textarea textarea-bordered textarea-lg w-full placeholder:text-[12px] placeholder:sm:text-base text-base'
+                        className='textarea textarea-bordered textarea-xl w-full placeholder:text-[12px] placeholder:sm:text-base text-base'
                         maxLength={5000}
                         required
                     />

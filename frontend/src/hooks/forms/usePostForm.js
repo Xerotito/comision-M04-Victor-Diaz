@@ -3,9 +3,9 @@
  * recibe por props la referencia del form y la url de el endpoint.
  */
 import { useState } from 'react'
-import requestApi from '../api/requestApi'              //config de axios personalizada
-import getInputsValues from '../libs/getInputsValues'   //fn que extrae los values de los inputs o textarea
-import { alertStore } from '../store'
+import requestApi from '../../api/requestApi'              //config de axios personalizada
+import getInputsValues from '../../libs/getInputsValues'   //fn que extrae los values de los inputs o textarea
+import { alertStore } from '../../store'
 import { useNavigate } from "react-router-dom";
 
 export default function usePostForm (form = {}, url = '') {
@@ -23,10 +23,9 @@ export default function usePostForm (form = {}, url = '') {
         const values = getInputsValues(form)  
         //Arma el post a enviar al endpoints
         const post =  {
-            title            : values.title,
-            short_description: values.short_description,
-            description      : values.short_description + '' + values.description,
-            imageURL         : values.imageURL
+            title      : values.title,
+            description: values.description,
+            imageURL   : values.imageURL
         }
     
         setDisableBtn(true) //Deshabilitamos el botón para que no se puedan enviar multiples solicitudes

@@ -1,6 +1,11 @@
+import { ActionsPost }  from '../actions/'
+
 export default function LastPost({lastPost}) {
 
-    const { title, short_description, imageURL,createdAt } = lastPost
+    const { createdAt, description, imageURL, title, } = lastPost
+
+    let trimmDescription = description.substring(0, 300) //Cortamos las descripción para mostrar en la tarjeta
+    
     const user = lastPost?.author?.username
 
     return (
@@ -11,13 +16,13 @@ export default function LastPost({lastPost}) {
                     alt='Foto de ejemplo'
                 />
             </figure>
+        
             <div className='card-body w-full lg:w-[40%]'>
-                <h2 className='card-title'>{title}</h2>
-                <span className='text-xs uppercase'>{user} | {createdAt}</span>
-                <p>{short_description}</p>
-                <div className='card-actions border-2 border-black'>
-                    Actions
-                </div>
+                <h2 className='card-title cursor-pointer'>{title}</h2>
+                <br />
+                <span className='text-xs uppercase'>{user} | {createdAt}</span> 
+                <p>{trimmDescription}<span className='text-xs font-bold font-mono text-primary'> ...SEGUIR LEYENDO</span></p>
+                <ActionsPost/>
             </div>
         </article>
     )

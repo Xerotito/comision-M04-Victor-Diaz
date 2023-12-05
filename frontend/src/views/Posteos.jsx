@@ -2,7 +2,6 @@
 
 import { Alert } from '../components/alerts'
 import { alertStore } from '../store'
-import { Loader } from '../components'
 import { LastPost, Post } from '../components/posts'
 import { useCRUDPosts } from '../hooks'
 
@@ -18,26 +17,31 @@ export default function Posteos() {
             <div className='alert-container w-[80%] justify-self-center absolute z-10 top-32'>
                 {alert && <Alert message={message} />}
             </div>
-            { posts === null ? <Loader /> : <Posts posts={posts} /> }
+            { posts === null ? <NoPosts /> : <Posts posts={posts} /> }
         </section>
     )
 }
 
-//Función post que se llama cuando se cargan los posts
-export const Posts = ({ posts }) => {
-    const {lastPost, nextPosts} = posts
+//Componente que renderiza los posts
+const Posts = ({ posts }) => {
+    const { lastPost, nextPosts } = posts
     return (
-            <div className='posts sub-container grid'>
-                <div className='justify-self-center mt-2'>
-                    <LastPost lastPost={lastPost} />
-                </div>
-                <div className='
+        <div className='posts sub-container grid'>
+            <div className='justify-self-center mt-2'>
+                <LastPost lastPost={lastPost} />
+            </div>
+            <div className='
                 grid grid-cols-1 md:grid-cols-2 justify-self-center
                 mt-10 gap-2
                 '
-                >
-                    {nextPosts.map(post => <Post key={post._id} post={post}/>)}
-                </div>
+            >
+                {nextPosts.map(post => <Post key={post._id} post={post} />)}
             </div>
+        </div>
     )
+}
+
+//Componente si no hay posts
+const NoPosts = () => {
+    return  <h2 class="font-[bebas] text-xl w-[80%] border-2 border-black text-center mt-4 p-2 m-auto">No hay posts para mostrar</h2>
 }

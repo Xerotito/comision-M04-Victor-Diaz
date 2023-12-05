@@ -1,6 +1,5 @@
 /**
- * CustomHook que contiene las fn q se encargan del CRUD de los posteos, interactúa directamente con la BD
- * en vez de guardar en un estado global
+ * CustomHook que contiene las fn q se encargan del CRUD de los posteos, interactúa directamente con el back, en vez de guardar en un estado global
  */
 
 import { useEffect, useState } from 'react'
@@ -19,21 +18,22 @@ export default function useCRUDPost() {
 
     const getPosts = async () => {
         try {
-            const { data } = await requestApi.get('./post/getAll')
-            if ( data ) {
+            const { data } = await requestApi.get('./post/getAll')  
+            if ( data.length !== 0 ) {
                 setPosts({ lastPost: data.pop(), nextPosts: data.reverse() })  
 
             }
         } catch (err) {
             setAlert({
                 alert  : true,
-                message: 'Hubo un error al cargar los posts',
+                message: 'Parece que no hay conexión con la base de datos',
                 type   : 'error',
             })
         }
     }
 
     useEffect( () =>  { getPosts() }, [] ) 
+
 
     return { posts }
 }
