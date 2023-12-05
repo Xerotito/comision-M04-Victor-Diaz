@@ -3,13 +3,18 @@
 import { Alert } from '../components/alerts'
 import { alertStore } from '../store'
 import { TargetLG, TargetSM } from '../components/posts'
-import { useCRUDPosts } from '../hooks'
+import { usePostStore } from '../hooks'
+import { useEffect } from 'react'
+
 
 
 export default function Posteos() {
+    //Componente alerta de errores
+    const {alert, message} = alertStore()   
 
-    const {alert, message} = alertStore()    //Componente de errores
-    const { posts }        = useCRUDPosts()  //Componente que se encarga de la gestión de posts
+    //Estado global de posts
+    const { posts } = usePostStore()
+    console.log(posts)
 
     //Mientras obtenemos los post mostraremos un loader, si hay algún problema de conexión mostraremos el <Alert />
     return (
@@ -17,10 +22,12 @@ export default function Posteos() {
             <div className='alert-container w-[80%] justify-self-center absolute z-10 top-32'>
                 {alert && <Alert message={message} />}
             </div>
-            { posts === null ? <NoPosts /> : <TargetPosts posts={posts} /> }
+            { posts === null ? <NoPosts /> : <PostsTargets posts={posts} /> }
         </section>
     )
 }    
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //Componente si no hay posts
 const NoPosts = () => {
@@ -28,9 +35,9 @@ const NoPosts = () => {
 }
 
 //Componente que renderiza los posts
-const TargetPosts = ({ posts }) => {
-    const { lastPost, nextPosts } = posts
-    return (
+const PostsTargets = ({ posts }) => {
+    const {lastPost, nextPosts} = posts
+    return (       
         <div className='posts sub-container grid'>
             <div className='justify-self-center mt-2'>
                 <TargetLG lastPost={lastPost} />

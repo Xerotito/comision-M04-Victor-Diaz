@@ -7,7 +7,7 @@
 
 import { create } from 'zustand'
 
-const useStore = create((set) => ({
+const userStore = create((set) => ({
     user : {},
     userStatus:'not-authenticated',  // 'authenticated', 'not-authenticated', 'checking'
 
@@ -16,4 +16,4 @@ const useStore = create((set) => ({
     onLogout  : () => set(state => ({ user: {},userStatus: 'not-authenticated' }))
 }))
 
-export default useStore
+export default userStore

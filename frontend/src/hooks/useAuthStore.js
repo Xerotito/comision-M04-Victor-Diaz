@@ -1,6 +1,6 @@
 /**
- * Store almacena las funciones que gestionan todo lo relacionado a autentificación de usuario,
- * esta a su vez interactúa con el estado global authStore
+ * Un store que almacena los dispatch de autentificación de usuarios (registro y login), realiza las request al backend y luego almacena en
+ * el store global de usuarios (userStore) desde el cual se sirve los datos toda la app
 */
 
 import { userStore } from '../store'

@@ -22,7 +22,8 @@ export default function AppRouter() {
 
     return (
         <Routes>
-            <Route path='/*'            element={<Posteos />} />
+            <Route path='/post/:postID'     element={<Post />} />
+            <Route path='/*'                element={<Posteos />} />
 
             {userStatus === 'not-authenticated' ? (
                 <>
