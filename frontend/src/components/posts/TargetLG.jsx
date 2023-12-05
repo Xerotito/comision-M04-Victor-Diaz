@@ -1,8 +1,9 @@
-import { ActionsPost }  from '../actions/'
+import { ActionsPost }  from '../actions'
 
-export default function LastPost({lastPost}) {
+export default function TargetLG ({lastPost}) {
 
-    const { createdAt, description, imageURL, title, } = lastPost
+    const { _id: id, createdAt, description, imageURL, title, } = lastPost
+    console.log(id)
 
     let trimmDescription = description.substring(0, 300) //Cortamos las descripción para mostrar en la tarjeta
     
@@ -21,7 +22,7 @@ export default function LastPost({lastPost}) {
                 <h2 className='card-title cursor-pointer'>{title}</h2>
                 <br />
                 <span className='text-xs uppercase'>{user} | {createdAt}</span> 
-                <p>{trimmDescription}<span className='text-xs font-bold font-mono text-primary'> ...SEGUIR LEYENDO</span></p>
+                <p>{trimmDescription}<span className='text-xs font-bold font-mono text-primary'> ... SEGUIR LEYENDO</span></p>
                 <ActionsPost/>
             </div>
         </article>

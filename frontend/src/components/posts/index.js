@@ -1,3 +1,3 @@
-export { default as LastPost } from './LastPost';
-export { default as Post } from './Post';
+export { default as TargetLG } from './TargetLG';
+export { default as TargetSM } from './TargetSM';
 export * from './index';

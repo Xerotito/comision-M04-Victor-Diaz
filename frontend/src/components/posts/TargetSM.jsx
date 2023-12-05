@@ -1,7 +1,9 @@
-export default function Post({post}) {
+import { ActionsPost } from '../actions'
+
+export default function TargetSM({post}) {
 
     const { title, show_description, imageURL, createdAt } = post
-    const user = post?.author?.username
+    const autor = post?.author?.username
 
     return (
         <article className='card md:card-side bg-base-100 shadow-xl grid'>
@@ -13,11 +15,9 @@ export default function Post({post}) {
             </figure>
             <div className='card-body py-4'>
                 <h2 className='card-title'>{title}</h2>
-                <span className='text-xs uppercase'>{user} |{createdAt}</span>
+                <span className='text-xs uppercase'>{autor} |{createdAt}</span>
                 <p>{show_description}</p>
-                <div className='card-actions border-2 border-black'>
-                    Actions
-                </div>
+                <ActionsPost/>
             </div>
         </article>
     )

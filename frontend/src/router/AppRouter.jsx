@@ -6,7 +6,7 @@ import { useEffect } from 'react'
 import { Navigate, Route,Routes } from 'react-router-dom'
 import { userStore } from '../store'
 import { useAuthStore } from '../hooks'
-import { AuthForms, Posteos } from '../views'
+import { AuthForms, Post, Posteos } from '../views'
 import { Loader } from '../components/'
 import CreatePost from '../views/CreatePost'
 
@@ -22,15 +22,15 @@ export default function AppRouter() {
 
     return (
         <Routes>
+            <Route path='/*'            element={<Posteos />} />
+
             {userStatus === 'not-authenticated' ? (
                 <>
-                    <Route path='/*'        element={<Posteos />} />
-                    <Route path='/login'    element={<AuthForms />} />
-                    <Route path='/register' element={<AuthForms />} />
+                    <Route path='/login'        element={<AuthForms />} />
+                    <Route path='/register'     element={<AuthForms />} />
                 </>
             ) : (
                 <>
-                    <Route path='/*'          element={<Posteos />} />
                     <Route path='/login'      element={<Navigate to='/' replace={true} />} />
                     <Route path='/register'   element={<Navigate to='/' replace={true} />} />
                     <Route path='/createPost' element={<CreatePost/>}/>
