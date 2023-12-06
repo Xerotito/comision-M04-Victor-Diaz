@@ -48,7 +48,7 @@ export default function CreatePost() {
                         name='description'
                         placeholder='Ingrese el contenido del post'
                         className='textarea textarea-bordered textarea-xl w-full placeholder:text-[12px] placeholder:sm:text-base text-base'
-                        maxLength={5000}
+                        maxLength={10000}
                         required
                     />
                     <span className='label-text font-semibold'>Imagen URL</span>

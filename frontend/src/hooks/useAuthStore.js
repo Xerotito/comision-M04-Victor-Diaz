@@ -1,6 +1,7 @@
 /**
- * Un store que almacena los dispatch de autentificación de usuarios (registro y login), realiza las request al backend y luego almacena en
- * el store global de usuarios (userStore) desde el cual se sirve los datos toda la app
+ * Un store que almacena las acciones (dispatch) de autentificación de usuarios (registro y login), 
+ * realiza las request al backend y luego almacena en el store global de usuarios (userStore) 
+ * desde el cual se sirve los datos la app cuando lo requiere
 */
 
 import { userStore } from '../store'

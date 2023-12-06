@@ -14,8 +14,8 @@ import CreatePost from '../views/CreatePost'
 export default function AppRouter() {
 
     const { validateUser }      = useAuthStore()  //Store con acciones de autentificación
-    const {  user, userStatus } = userStore()     //Store con el estado global
-    useEffect( () => { validateUser() }, [] )   //Fn que carga el usuario en sesión si el token no expiro o se modifico.
+    const {  user, userStatus } = userStore()     //Store con información del usuario activo 
+    useEffect( () => { validateUser() }, [] )     //Fn que carga el usuario en sesión si el token no expiro o se modifico.
     // console.log(userStatus)
 
     if (userStatus === 'checking') return <Loader/>

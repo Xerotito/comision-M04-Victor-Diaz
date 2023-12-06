@@ -1,20 +1,21 @@
-/* Componente que muestra los posts en pantalla */
+/**
+ * Componente que carga todos los post en pantalla, usa una tarjeta principal para mostrar el último post
+ * y tarjetas mas chicas para los anteriores
+ */
 
 import { Alert } from '../components/alerts'
 import { alertStore } from '../store'
 import { TargetLG, TargetSM } from '../components/posts'
-import { usePostStore } from '../hooks'
-import { useEffect } from 'react'
-
+import { useGetAllPost } from '../hooks/usePostController'
 
 
 export default function Posteos() {
-    //Componente alerta de errores
+    //Componente global muestra si hay algún error
     const {alert, message} = alertStore()   
 
-    //Estado global de posts
-    const { posts } = usePostStore()
-    console.log(posts)
+    //CustomHook realiza la llamada al endpoint y trae los posts
+    const { posts } = useGetAllPost()
+    
 
     //Mientras obtenemos los post mostraremos un loader, si hay algún problema de conexión mostraremos el <Alert />
     return (
@@ -27,14 +28,12 @@ export default function Posteos() {
     )
 }    
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-//Componente si no hay posts
+//Se muestra si no hay posts
 const NoPosts = () => {
     return  <h2 className="font-[bebas] text-xl w-[80%] border-2 border-black text-center mt-4 p-2 m-auto">No hay posts para mostrar</h2>
 }
 
-//Componente que renderiza los posts
+//Componente que renderiza los posts uno es la tarjeta principal que muestra el ultimo post
 const PostsTargets = ({ posts }) => {
     const {lastPost, nextPosts} = posts
     return (       
@@ -53,3 +52,8 @@ const PostsTargets = ({ posts }) => {
     )
 }
 
+{/*  */}
+
+    //Los posts son cargados del store global, para eso llamamos a la función que los carga de la BD con un useEffect
+    // const { posts, getPosts } = usePostStore()
+    // useEffect(() => { getPosts() }, [])
