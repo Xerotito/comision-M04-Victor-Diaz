@@ -3,7 +3,8 @@ import { ActionsPost } from '../actions'
 
 export default function TargetSM({post}) {
     const navigate =  useNavigate()
-    const { _id:idPost, title, show_description, imageURL, createdAt } = post
+    const { _id: idPost, title, show_description, imageURL, createdAt } = post
+    const autorID = post?.author?._id
     const autor = post?.author?.username
 
     //Redirección cunado se quiere ver un post de las tarjetas
@@ -21,7 +22,7 @@ export default function TargetSM({post}) {
             <h2 className='card-title cursor-pointer' onClick={goToPost}>{title}</h2>
                 <span className='text-xs uppercase'>{autor} |{createdAt}</span>
                 <p>{show_description}</p>
-                <ActionsPost/>
+                <ActionsPost autorID={autorID} idPost={idPost}/>
             </div>
         </article>
     )

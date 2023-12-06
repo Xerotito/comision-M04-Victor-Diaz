@@ -4,6 +4,7 @@ import { ActionsPost }  from '../actions'
 export default function TargetLG ({lastPost}) {
     const navigate =  useNavigate()
     const { _id: idPost, createdAt, description, imageURL, title, } = lastPost
+    const autorID = lastPost?.author?._id
 
     //Cortamos las descripción para mostrar en la tarjeta 
     let trimmDescription = description.substring(0, 300) 
@@ -33,7 +34,7 @@ export default function TargetLG ({lastPost}) {
                     ... SEGUIR LEYENDO
                     </span>
                 </p>
-                <ActionsPost/>
+                <ActionsPost autorID={autorID} idPost={idPost}/>
             </div>
         </article>
     )

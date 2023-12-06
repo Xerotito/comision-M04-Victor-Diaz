@@ -7,10 +7,10 @@
 import { create } from 'zustand'
 
 const useAlert = create((set) => ({
-    alert        : false,
-    message      : '',
-    type         : '',      //error || success
-    onClose: () => set(state => ({ alert: false, message: '', type: '' })),
+    alert   : false,
+    message : '',
+    type    : '',                                                              //error || success
+    onClose : () => set(state => ({ alert: false, message: '', type: '' })),
     setAlert: (payload) => set(state => ({ ...state,...payload })),
 }))
 

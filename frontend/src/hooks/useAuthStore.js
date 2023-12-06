@@ -1,7 +1,7 @@
 /**
  * Un store que almacena las acciones (dispatch) de autentificación de usuarios (registro y login), 
- * realiza las request al backend y luego almacena en el store global de usuarios (userStore) 
- * desde el cual se sirve los datos la app cuando lo requiere
+ * realiza las request al backend y luego almacena en el store global los datos del usuario en sesión (userStore) 
+ * los cuales pueden ser accedidos de cualquier componente que se necesite
 */
 
 import { userStore } from '../store'
@@ -41,7 +41,7 @@ export default function useAuthStore() {
         }
     }
 
-    //LOGIN (se dispara al registrar usuario también)
+    //LOGIN & REGISTER
     const startLogin = (userData, token) => {
         onChecking()
         saveUser(userData)

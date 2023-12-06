@@ -21,12 +21,15 @@ export default function usePostForm (form = {}, url = '') {
         e.preventDefault()
         //Fn que extrae los valors de los inputs
         const values = getInputsValues(form)  
-        //Arma el post a enviar al endpoints
+
+        //Arma el post con los datos a enviar al endpoint
+        const formatDescription = values.description.replace(/\n/g, '\n\n') //Formatea la description con doble salto de linea para que se vea mejor
+    
         const post =  {
             title      : values.title,
-            description: values.description,
+            description: formatDescription,
             imageURL   : values.imageURL
-        }
+        }       
     
         setDisableBtn(true) //Deshabilitamos el botón para que no se puedan enviar multiples solicitudes
         try{

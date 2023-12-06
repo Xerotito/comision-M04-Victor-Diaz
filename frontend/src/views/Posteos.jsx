@@ -4,20 +4,18 @@
  */
 
 import { Alert } from '../components/alerts'
-import { alertStore } from '../store'
+import { alertStore, postStore } from '../store'
 import { TargetLG, TargetSM } from '../components/posts'
 import { useGetAllPost } from '../hooks/usePostController'
 
-
 export default function Posteos() {
     //Componente global muestra si hay algún error
-    const {alert, message} = alertStore()   
-
-    //CustomHook realiza la llamada al endpoint y trae los posts
+    const { alert, message } = alertStore() 
     const { posts } = useGetAllPost()
     
 
-    //Mientras obtenemos los post mostraremos un loader, si hay algún problema de conexión mostraremos el <Alert />
+    //CustomHook realiza la llamada al endpoint y trae los posts
+
     return (
         <section className='grid bg-base-200 '>
             <div className='alert-container w-[80%] justify-self-center absolute z-10 top-32'>
@@ -51,9 +49,3 @@ const PostsTargets = ({ posts }) => {
         </div>
     )
 }
-
-{/*  */}
-
-    //Los posts son cargados del store global, para eso llamamos a la función que los carga de la BD con un useEffect
-    // const { posts, getPosts } = usePostStore()
-    // useEffect(() => { getPosts() }, [])
