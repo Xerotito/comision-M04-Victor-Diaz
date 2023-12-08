@@ -7,11 +7,12 @@
 
 
 import { useDeletePost } from '../../hooks/usePostController'
-import {  postStore } from '../../store'
+import {  alertStore, postStore } from '../../store'
 
 export default function ControlButtons({idPost}) { 
 
-    const { postID, setPostID, resetPostID, setDelete } = postStore()
+    const { setAlert } = alertStore()
+    const { postID, setPostID, resetPostID } = postStore()
 
 
     const showModal = () => {
@@ -24,7 +25,11 @@ export default function ControlButtons({idPost}) {
         const res = await useDeletePost(postID)
         if(res) {
             resetPostID()   
-            setDelete(true)
+            setAlert({
+                alert  : true,
+                message: '¡Se elimino el post!',
+                type   : 'success'
+            })
         }
     }
 

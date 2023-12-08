@@ -7,13 +7,12 @@ PostController.createPost = async (req,res) => {
      * Recibimos los datos del formularios de creación de post del front,
      * el author viene de la respuesta del middleware de token en req
      */
-    const { title, short_description, description, imageURL } = req.body
+    const { title, description, imageURL } = req.body
 
     try {
         //Creamos el post a insertar en la bd con el modelo
         const newPost = new Post({
             title,
-            short_description,
             description,
             author: req.uid,
             imageURL,
@@ -97,7 +96,7 @@ PostController.deletePost = async (req, res) => {
     //Encontramos el post por id en la BD y con el mismo método de mongoose eliminamos
     await Post.findByIdAndDelete(id)
 
-    res.status(204).json({ok: true, message: 'El post se elimino exitosamente'})
+    res.status(200).json({ok: true, message: 'El post se elimino exitosamente'})
 
     } catch (err) {
         res.status(500).json({

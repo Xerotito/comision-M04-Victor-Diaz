@@ -1,34 +1,30 @@
 /**
- * Almacena los customHooks personalizados que manejan todo los relacionado a los posteos (CRUD)
- * Cada uno realiza la llamada al endpoint correspondiente y retorna los datos en un estado.
+ * Almacena los customHooks y funciones personalizadas que manejan todo los relacionado a los posteos (CRUD)
+ * Cada uno realiza la llamada al endpoint correspondiente y retorna los datos en un estado
  */
 
 import { useEffect, useState } from 'react'
 import requestApi from '../api/requestApi' //Configuración de axios, envía el token en cada request
+import { postStore } from '../store'
 
 
 
 //TODOS LOS POSTS
-export function useGetAllPost(){
-    const [posts, setPosts] = useState(null)
+export async function getAllPost() {
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const { data } = await requestApi.get('/post/getAll')
-                if(data.length === 0) return setPosts(null)
-                setPosts({
-                    lastPost : data.pop(),
-                    nextPosts: data.reverse(),
-                })
-            } catch (err) {
-                console.error('Error fetching post:', err)
-            }
-        }
-        fetchData()
-    }, [])
-    
-    return { posts }
+    const { setPosts } = postStore()
+
+    try {
+        const { data } = await requestApi.get('/post/getAll')
+        if (data.length === 0) return setPosts(null)
+        setPosts({
+            lastPost: data.pop(),
+            nextPosts: data.reverse(),
+        })
+    } catch (err) {
+        console.error('Error fetching post:', err)
+    }
+
 }
 
 
@@ -63,3 +59,5 @@ export async function useDeletePost(postID) {
 
     
 }
+
+

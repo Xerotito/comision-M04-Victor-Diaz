@@ -1,17 +1,34 @@
 /**
  * Componente que carga todos los post en pantalla, usa una tarjeta principal para mostrar el último post
- * y tarjetas mas chicas para los anteriores
+ * y tarjetas mas chicas para los anteriores, también se recarga cuando se elimina un post desde la vista principal.
  */
 
 import { Alert } from '../components/alerts'
 import { alertStore, postStore } from '../store'
 import { TargetLG, TargetSM } from '../components/posts'
-import { useGetAllPost } from '../hooks/usePostController'
+import { useEffect } from 'react'
+import requestApi from '../api/requestApi'
 
 export default function Posteos() {
     //Componente global muestra si hay algún error
-    const { alert, message } = alertStore() 
-    const { posts } = useGetAllPost()
+    const { alert, message }  = alertStore()
+    const { posts, setPosts } = postStore()
+
+useEffect(() => {
+    const fetchData = async () => {
+        try {
+            const { data } = await requestApi.get('/post/getAll')     
+            if(data.length === 0) return setPosts(null)
+            setPosts({
+                lastPost : data.pop(),
+                nextPosts: data.reverse(),
+            })
+        } catch (err) {
+            console.error('Error fetching post:', err)
+        }
+    }
+    fetchData()
+}, [alert])    
     
 
     //CustomHook realiza la llamada al endpoint y trae los posts

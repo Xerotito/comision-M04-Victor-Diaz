@@ -1,17 +1,16 @@
 /**
- * Estado global que contiene el id del post cuando es seleccionado con el botón de eliminar o editar, ya que con
- * algunos elementos como el dialog del modal no sirve pasar por props
+ * Estado global que contiene todos los posts que se muestran en la pagina principal, también guarda
+ * el id del post a editar o eliminar, (esto es util ya que elementos html como dialog no se por que no soporta props)
  */
 
 import { create } from 'zustand'
 
 const postStore = create((set) => ({
+    posts      : null,
     postID     : null,
-    isDeletePost : false,
+    setPosts   : (payload) => set(state => ({ posts: payload })),
     setPostID  : (idPost) => set(state => ({ postID: idPost })),
     resetPostID: (idPost) => set(state => ({ postID: null })),
-    setDelete  : () => set(state => ({ isDeletePost: true })),
-
 }))
 
 export default postStore
