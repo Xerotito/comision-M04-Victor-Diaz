@@ -26,7 +26,7 @@ useEffect(() => {
         } catch (err) {
             console.error('Error fetching post:', err)
         }
-    }
+    }    
     fetchData()
 }, [alert])    
     

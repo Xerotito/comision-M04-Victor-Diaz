@@ -4,8 +4,6 @@
  * que este se encuentre en el mismo componente, por lo cual termine usando un estado global para almacenar el current Post
  */
 
-
-
 import { useDeletePost } from '../../hooks/usePostController'
 import {  alertStore, postStore } from '../../store'
 
@@ -14,17 +12,21 @@ export default function ControlButtons({idPost}) {
     const { setAlert } = alertStore()
     const { postID, setPostID, resetPostID } = postStore()
 
-
     const showModal = () => {
-        //Llama al modal y setea el id del post a eliminar
+        //Llama al modal y setea el id del post a eliminar o editar
         document.getElementById('deleteModal').showModal()
         setPostID(idPost)
     }
 
+    //Función que se invoca al confirmar eliminar el post
     const deletePost = async () => {
         const res = await useDeletePost(postID)
         if(res) {
             resetPostID()   
+            /**
+             * Seteamos la alerta, la cual es la dependencia del useEffect que carga los post en la pagina principal,
+             * realizando un re render de los posts.
+             */
             setAlert({
                 alert  : true,
                 message: '¡Se elimino el post!',
@@ -32,7 +34,6 @@ export default function ControlButtons({idPost}) {
             })
         }
     }
-
 
     return (
         <div>
@@ -52,10 +53,7 @@ export default function ControlButtons({idPost}) {
                     </div>
                 </div>
             </dialog>      
-
         </div>
     )
 }
 
-
-// const response = await requestApi.delete('/post/delete', { data: { id: idPost } })
