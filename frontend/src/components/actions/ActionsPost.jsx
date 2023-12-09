@@ -9,13 +9,13 @@ import { ControlButtons } from '../buttons';
 
 
 
-export default function ActionsPost({autorID, idPost}) {
+export default function ActionsPost({autorID, post}) {
 
     const { user } = userStore()
 
     return (
         <div className='border-t p-3 border-[1px_solid_#ccc] flex items-center justify-between'>
-            {user.uid === autorID && <ControlButtons idPost={idPost}/>}  
+            {user.uid === autorID && <ControlButtons post={post}/>}  
             <div className='comments-container flex items-center ml-auto'>
                 <span className='font-[bebas] mr-4'>0 comentarios</span>
                 <button className=''><Icon icon='mdi:comments-outline' width={32} /></button>

@@ -6,11 +6,13 @@
 import { create } from 'zustand'
 
 const postStore = create((set) => ({
-    posts      : null,
-    postID     : null,
-    setPosts   : (payload) => set(state => ({ posts: payload })),
-    setPostID  : (idPost) => set(state => ({ postID: idPost })),
-    resetPostID: (idPost) => set(state => ({ postID: null })),
+    posts         : null,
+    // currentPost   : null,
+    postID        : null,
+    setPosts      : (payload) => set(state => ({ posts: payload })),
+    // setCurrentPost: (payload) => set(state => ({ currentPost: payload })),
+    setPostID     : (idPost) => set(state => ({ postID: idPost })),
+    resetPostID   : () => set(state => ({ postID: null })),
 }))
 
 export default postStore

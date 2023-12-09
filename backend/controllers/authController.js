@@ -38,6 +38,7 @@ authController.createUser = async (req,res) => {
          *lo evaluamos en el catch (Hay un biblioteca que soluciona esto pero preferí hacerlo manual)
         */
         console.log(err)
+        //Código que nos dice si el usuario o el email ya están registrados
         err.code === 11000 
         ? res.status(401).json(`'${Object.values(err.keyValue)}', ya se encuentra registrado`)
         : res.status(500).json(err) //Respuesta si hay error de otro tipo

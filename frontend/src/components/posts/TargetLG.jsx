@@ -34,7 +34,7 @@ export default function TargetLG ({lastPost}) {
                     ... SEGUIR LEYENDO
                     </span>
                 </p>
-                <ActionsPost autorID={autorID} idPost={idPost}/>
+                <ActionsPost autorID={autorID} post={lastPost}/>
             </div>
         </article>
     )

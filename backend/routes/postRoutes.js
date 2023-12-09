@@ -20,7 +20,7 @@ postRouter.get('/:id', PostController.getPost)                     //  ./api/pos
 postRouter.post('/create', validarJWT, PostController.createPost) // ./api/post/create method POST
 
 //Endpoint editar post
-postRouter.put('/edit', validarJWT, PostController.editPost)      // ./api/post/edit method PUT
+postRouter.put('/edit/:id', validarJWT, PostController.editPost)      // ./api/post/edit method PUT
 
 //Endpoint Eliminar publicación 
 postRouter.delete('/delete',validarJWT, PostController.deletePost) // ./api/post/delete method DELETE

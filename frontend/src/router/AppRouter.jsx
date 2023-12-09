@@ -8,7 +8,9 @@ import { userStore } from '../store'
 import { useAuthStore } from '../hooks'
 import { AuthForms, Post, Posteos } from '../views'
 import { Loader } from '../components/'
-import CreatePost from '../views/CreatePost'
+import { CreatePost,EditPost } from '../views'
+
+
 
 
 export default function AppRouter() {
@@ -34,6 +36,7 @@ export default function AppRouter() {
                     <Route path='/login'      element={<Navigate to='/' replace={true} />} />
                     <Route path='/register'   element={<Navigate to='/' replace={true} />} />
                     <Route path='/createPost' element={<CreatePost/>}/>
+                    <Route path='/editPost' element={<EditPost/>}/>
                 </>
             )}
         </Routes>

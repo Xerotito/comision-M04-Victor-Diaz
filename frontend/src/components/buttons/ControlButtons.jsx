@@ -4,13 +4,18 @@
  * que este se encuentre en el mismo componente, por lo cual termine usando un estado global para almacenar el current Post
  */
 
+import { useNavigate } from 'react-router-dom'
 import { useDeletePost } from '../../hooks/usePostController'
 import {  alertStore, postStore } from '../../store'
 
-export default function ControlButtons({idPost}) { 
+export default function ControlButtons({post}) { 
 
+    const idPost = post._id
+    const navigate = useNavigate()
     const { setAlert } = alertStore()
-    const { postID, setPostID, resetPostID } = postStore()
+
+    //Guardamos el post y el id en el el store global, esto lo hará mas fácil de editar y eliminar
+    const { postID, setPostID, setCurrentPost, resetPostID } = postStore()
 
     const showModal = () => {
         //Llama al modal y setea el id del post a eliminar o editar
@@ -35,11 +40,16 @@ export default function ControlButtons({idPost}) {
         }
     }
 
+    const editPost = () => navigate('/editPost') 
+
     return (
         <div>
-            <button className='text-2xl sm:text-3xl' onClick={showModal}>❌</button>
-            <button className='text-2xl sm:text-3xl'>📝</button>  
-
+            <div className='tooltip' data-tip="Eliminar post">
+                <button className='text-2xl sm:text-3xl' onClick={showModal}>❌</button>
+            </div>
+            <div className='tooltip' data-tip="Editar post">
+                <button className='text-2xl sm:text-3xl' onClick={editPost}>📝</button>  
+            </div>
             {/* Modal que se llama al eliminar post */}    
             <dialog id="deleteModal" className="modal">
                 <div className="modal-box">

@@ -1,22 +1,32 @@
+/**
+ * Componente para editar post, carga los values del store global de posts, 
+ * comparte el customHook de crear post para el envió de datos y request al endPoint
+ */
+
 import { useRef } from 'react'
 import { usePostForm } from '../hooks'
 import { Alert } from '../components/alerts'
 import { alertStore } from '../store'
 
+const currentPost = null
 
-export default function CreatePost() { 
+export default function EditPost() { 
+
     //Manejo del formulario realiza la request y envía datos al endpoint
     const postForm = useRef(null)
-    const { actionForm, disableBtn } = usePostForm(postForm, '/post/create')
+    const { actionForm, disableBtn } = usePostForm(postForm, '/post/edit')
     
-    //Manejo del componente alert
-    const {type, message} = alertStore()
+    //Componente global <Alert> para manejo de errores e info    
+    const { type, message } = alertStore()
+
 
     return (
         <section className='grid'>
+            {/* Componente <Alert> global */}
             <div className='alert-container w-[80%] justify-self-center absolute z-10'>
                 { type === 'error' && <Alert message={message}/> }
             </div>
+
             <form className='
             createPost sub-container relative   
             grid w-full     
@@ -32,15 +42,16 @@ export default function CreatePost() {
                 absolute top-[-18px] left-[11%]            
             '
                 >
-                    Crear Post
+                    Editar Post
                 </div>
                 <div className='inputs-container w-full grid gap-2'>
                     <span className='label-text font-semibold'>Título:</span>
                     <textarea
-                        name        = 'title'
-                        className   = 'textarea textarea-bordered textarea-xs w-full placeholder:text-base text-base'
-                        placeholder = 'Ingrese un Título'
-                        maxLength   = {300}
+                        name         = 'title'
+                        className    = 'textarea textarea-bordered textarea-xs w-full placeholder:text-base text-base'
+                        placeholder  = 'Ingrese un Título'
+                        defaultValue = {currentPost.title}
+                        maxLength    = {300}
                         required
                     />
                     <span className='label-text font-semibold'>Descripción</span>

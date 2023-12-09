@@ -22,7 +22,7 @@ export default function TargetSM({post}) {
             <h2 className='card-title cursor-pointer' onClick={goToPost}>{title}</h2>
                 <span className='text-xs uppercase'>{autor} |{createdAt}</span>
                 <p>{show_description}</p>
-                <ActionsPost autorID={autorID} idPost={idPost}/>
+                <ActionsPost autorID={autorID} post={post}/>
             </div>
         </article>
     )

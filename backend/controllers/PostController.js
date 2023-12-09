@@ -62,30 +62,36 @@ PostController.getPost = async (req, res) => {
 }
 
 //EDITAR POST
-PostController.editPost = async (req,res) => {
+PostController.editPost = async (req, res) => {
     try {
-        // Recibimos los datos del formularios de edición de post del front,
-        const { id, title, description, imageURL } = req.body
+        /**
+         * Recibimos el id desde la barra de direcciones del navegador (params)
+         * y los datos a editar por body
+         */
+        const { id } = req.params
+        const { title, description, imageURL } = req.body
 
-        //Encontramos por id el post en la BD
-        const foundPost = await Post.findById(id);
-        
+        //Ubicamos en la BD por id
+        const foundPost = await Post.findById(id)
+
         //Comparamos que el autor sea el mismo del que recibimos de la validación de token
         if (foundPost.author.toString() !== req.uid)
-            return res.status(403).json({ ok: false, message: 'Debe ser el autor del post para editarlo' })
+            return res
+                .status(403)
+                .json({ ok: false, message: 'Debe ser el autor del post para editarlo' })
 
-        await Post.findByIdAndUpdate(id, { title, description, imageURL }) //Si el autor es el mismo editamos el post
-
+        //Si el autor es el mismo editamos el post y respondemos
+        await Post.findByIdAndUpdate(id, { title, description, imageURL })
         res.status(200).json({ ok: true, message: 'Poste editado exitosamente' })
-
     } catch (err) {
         console.log(err)
         return res.status(500).json({
             message: 'Ocurrió un error al intentar editar la publicación',
-            err
+            err,
         })
     }
 }
+
 
 //ELIMINAR POST
 PostController.deletePost = async (req, res) => {
