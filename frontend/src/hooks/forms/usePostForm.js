@@ -22,12 +22,10 @@ export default function usePostForm (form = {}, url = '') {
         //Fn que extrae los valors de los inputs
         const values = getInputsValues(form)  
 
-        //Arma el post con los datos a enviar al endpoint
-        const formatDescription = values.description.replace(/\n/g, '\n\n') //Formatea la description con doble salto de linea para que se vea mejor
-    
+        //Arma el post con los datos a enviar al endpoint    
         const post =  {
             title      : values.title,
-            description: formatDescription,
+            description: values.description,
             imageURL   : values.imageURL
         }       
     

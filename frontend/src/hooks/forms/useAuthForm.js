@@ -37,21 +37,11 @@ export default function useAuthForm (form = {}, url = '') {
                 startLogin(data.user,data.token)
             }
         }catch(err){
-            if(err.response) { 
-                console.log(err?.response)
-                setAlert({
-                    alert  : true,
-                    message: err?.response?.data,
-                    type   : 'error'
-                })
-            }
-            else {
-                setAlert({
-                    alert  : true,
-                    message: 'Ocurrió un error interno',
-                    type   : 'error'
-                })
-            }
+            if (err?.response) setAlert({
+                alert  : true,
+                message: err.response.data,
+                type   : 'error',
+            })
         }
     }
 

@@ -37,26 +37,26 @@ export default function CreatePost() {
                 <div className='inputs-container w-full grid gap-2'>
                     <span className='label-text font-semibold'>Título:</span>
                     <textarea
-                        name='title'
-                        className='textarea textarea-bordered textarea-xs w-full placeholder:text-base text-base'
-                        placeholder='Ingrese un Título'
-                        maxLength={300}
+                        name        = 'title'
+                        className   = 'textarea textarea-bordered textarea-xs w-full placeholder:text-base text-base'
+                        placeholder = 'Ingrese un Título'
+                        maxLength   = {300}
                         required
                     />
                     <span className='label-text font-semibold'>Descripción</span>
                     <textarea
-                        name='description'
-                        placeholder='Ingrese el contenido del post'
-                        className='textarea textarea-bordered textarea-xl w-full placeholder:text-[12px] placeholder:sm:text-base text-base'
-                        maxLength={10000}
+                        name        = 'description'
+                        placeholder = 'Ingrese el contenido del post, se recomienda doble salto de linea por párrafo.'
+                        className   = 'textarea textarea-bordered textarea-xl w-full placeholder:text-[12px] placeholder:sm:text-base text-base'
+                        maxLength   = {10000}
                         required
                     />
                     <span className='label-text font-semibold'>Imagen URL</span>
                     <input
-                        name='imageURL'
-                        placeholder='Ingrese la dirección de la imagen'
-                        className='textarea textarea-bordered w-full placeholder:text-[12px] placeholder:sm:text-base text-base'
-                        maxLength={2000}
+                        name        = 'imageURL'
+                        placeholder = 'Ingrese la dirección de la imagen'
+                        className   = 'textarea textarea-bordered w-full placeholder:text-[12px] placeholder:sm:text-base text-base'
+                        maxLength   = {2000}
                         required
                     />
                 </div>

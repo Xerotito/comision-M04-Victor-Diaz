@@ -28,10 +28,8 @@ useEffect(() => {
         }
     }    
     fetchData()
-}, [alert])    
-    
+}, [alert])        
 
-    //CustomHook realiza la llamada al endpoint y trae los posts
 
     return (
         <section className='grid bg-base-200 '>
