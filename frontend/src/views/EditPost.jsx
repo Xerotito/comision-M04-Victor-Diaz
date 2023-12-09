@@ -1,83 +1,44 @@
 /**
- * Componente para editar post, carga los values del store global de posts, 
- * comparte el customHook de crear post para el envió de datos y request al endPoint
+ * Componente vista para editar post, llama a la fn useGetPostID que busca el post por id desde params (barra de direcciones)
+ * si el id existe y el usuario es el author del post puede ser editado, caso contrario mostrar un error.
+ * Si bien hace una validación del front con react, esto puede ser burlado por lo que esta misma validación también se realiza
+ * en el backend
  */
 
-import { useRef } from 'react'
-import { usePostForm } from '../hooks'
-import { Alert } from '../components/alerts'
-import { alertStore } from '../store'
 
-const currentPost = null
+import { useParams } from 'react-router-dom'
+import {  useGetPostID } from '../hooks'
+import { EditPostForm } from '../components/forms'
+import { userStore } from '../store'
 
-export default function EditPost() { 
-
-    //Manejo del formulario realiza la request y envía datos al endpoint
-    const postForm = useRef(null)
-    const { actionForm, disableBtn } = usePostForm(postForm, '/post/edit')
+export default function EditPost() {
+    //Traemos el usuario en sesión activa para poder comparar con el autor del post
+    const {user} = userStore()
+    const { id: postID } = useParams()
+    const { post } = useGetPostID(postID)
     
-    //Componente global <Alert> para manejo de errores e info    
-    const { type, message } = alertStore()
-
+    /**
+     * Realizamos la validación, el usuario logueado debe ser el autor del post para poder editarlo,
+     * como esta validación es del front y puede ser burlada, también hay una validación desde el back en caso de
+     * que el post pudiera ser accedido.
+     */
+    if (user?.uid !== post?.author) return <NoAuthor />
 
     return (
-        <section className='grid'>
-            {/* Componente <Alert> global */}
-            <div className='alert-container w-[80%] justify-self-center absolute z-10'>
-                { type === 'error' && <Alert message={message}/> }
-            </div>
-
-            <form className='
-            createPost sub-container relative   
-            grid w-full     
-            p-6 bg-content shadow-md 
-            '
-                ref      = {postForm}
-                onSubmit = {actionForm}
-            >
-                <div className='
-                bg-neutral text-white rounded-md 
-                text-center text-lg font-semibold
-                w-[80%] p-1
-                absolute top-[-18px] left-[11%]            
-            '
-                >
-                    Editar Post
-                </div>
-                <div className='inputs-container w-full grid gap-2'>
-                    <span className='label-text font-semibold'>Título:</span>
-                    <textarea
-                        name         = 'title'
-                        className    = 'textarea textarea-bordered textarea-xs w-full placeholder:text-base text-base'
-                        placeholder  = 'Ingrese un Título'
-                        defaultValue = {currentPost.title}
-                        maxLength    = {300}
-                        required
-                    />
-                    <span className='label-text font-semibold'>Descripción</span>
-                    <textarea
-                        name        = 'description'
-                        placeholder = 'Ingrese el contenido del post, se recomienda doble salto de linea por párrafo.'
-                        className   = 'textarea textarea-bordered textarea-xl w-full placeholder:text-[12px] placeholder:sm:text-base text-base'
-                        maxLength   = {10000}
-                        required
-                    />
-                    <span className='label-text font-semibold'>Imagen URL</span>
-                    <input
-                        name        = 'imageURL'
-                        placeholder = 'Ingrese la dirección de la imagen'
-                        className   = 'textarea textarea-bordered w-full placeholder:text-[12px] placeholder:sm:text-base text-base'
-                        maxLength   = {2000}
-                        required
-                    />
-                </div>
-                <button 
-                className='w-[80px] btn btn-success mt-2 justify-self-end'
-                disabled={disableBtn}
-                >
-                    Postear
-                </button>
-            </form>
-        </section>
+        <>
+            {post ? <EditPostForm post={post} /> : <NoPosts />}
+        </>
     )
 }
+
+//Se muestra si el id del post no existe.
+const NoPosts = () => {
+    return  <h2 className="font-[bebas] text-xl w-[80%] border-2 border-black text-center mt-4 p-2 m-auto">No se encuentra post con el id</h2>
+}
+
+//Se muestra si el usuario activo no es el autor del post al que se quiere editar.
+const NoAuthor = () => {
+    return  <h2 className="font-[bebas] text-xl w-[80%] border-2 border-black text-center mt-4 p-2 m-auto">Debe ser el autor del post para poder editarlo</h2>
+}
+
+

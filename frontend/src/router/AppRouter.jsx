@@ -36,7 +36,7 @@ export default function AppRouter() {
                     <Route path='/login'      element={<Navigate to='/' replace={true} />} />
                     <Route path='/register'   element={<Navigate to='/' replace={true} />} />
                     <Route path='/createPost' element={<CreatePost/>}/>
-                    <Route path='/editPost' element={<EditPost/>}/>
+                    <Route path='/editPost/:id' element={<EditPost/>}/>
                 </>
             )}
         </Routes>

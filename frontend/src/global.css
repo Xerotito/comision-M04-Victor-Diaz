@@ -4,14 +4,14 @@
 
 @font-face {
     font-family: 'bebas';
-    src        : url(fonts/BebasNeue.otf);
+    src        : url(../public/fonts/BebasNeue.otf);
     font-weight: normal;
     font-style : normal;
 }
 
 @font-face {
     font-family: 'Hedvig';
-    src        : url(fonts/HedvigLettersSerif.ttf);
+    src        : url(../public/fonts/HedvigLettersSerif.ttf);
     font-weight: normal;
     font-style : normal;
 }

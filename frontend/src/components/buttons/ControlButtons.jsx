@@ -15,13 +15,17 @@ export default function ControlButtons({post}) {
     const { setAlert } = alertStore()
 
     //Guardamos el post y el id en el el store global, esto lo hará mas fácil de editar y eliminar
-    const { postID, setPostID, setCurrentPost, resetPostID } = postStore()
+    const { postID, setPostID, resetPostID } = postStore()
 
     const showModal = () => {
         //Llama al modal y setea el id del post a eliminar o editar
         document.getElementById('deleteModal').showModal()
         setPostID(idPost)
     }
+
+    //Redirección al editar post
+    const editPost = () => navigate(`editPost/${idPost}`) 
+
 
     //Función que se invoca al confirmar eliminar el post
     const deletePost = async () => {
@@ -40,7 +44,6 @@ export default function ControlButtons({post}) {
         }
     }
 
-    const editPost = () => navigate('/editPost') 
 
     return (
         <div>
