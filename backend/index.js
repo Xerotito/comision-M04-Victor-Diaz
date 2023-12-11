@@ -8,7 +8,7 @@ const cors           = require('cors')
 const connectDB      = require('./config/connectDB')
 const authRouter     = require('./routes/authRoutes')
 const postRouter     = require('./routes/postRoutes')
-// const commentsRouter = require('./routes/commentsRoutes')
+const commentRouter = require('./routes/commentRoutes')
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const app  = express()
@@ -23,8 +23,7 @@ app.use(express.json())
 //Endpoints o rutas del backend se importan desde ./routes
 app.use('/api/user', authRouter)
 app.use('/api/post', postRouter)
-/* app.use('/api/comment', commentsRouter) */
-
+app.use('/api/comment', commentRouter)
 
 
 //Servidor UP

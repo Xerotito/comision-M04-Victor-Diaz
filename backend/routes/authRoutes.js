@@ -1,5 +1,5 @@
 /**
- * Endpoints de gestión de usuarios, llaman a su respectivo controlador desde ./controllers
+ * Endpoints de gestión de usuarios, llaman a su respectivo controlador desde la carpeta controllers
  */
 
 const authRouter = require('express').Router()                   //Enrutador de express

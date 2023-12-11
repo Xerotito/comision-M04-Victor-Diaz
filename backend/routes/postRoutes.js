@@ -1,10 +1,9 @@
 /**
- * Endpoints de gestión de post, llaman a sus respectivos controladores desde ./controllers
+ * Endpoints de gestión de post, llaman a sus respectivos controladores desde la carpeta controllers
  * Usaremos el middleware para validar el token en cada ruta esto nos da acceso a la info del mismo por request
  * pudiendo fijar asi valores como el uid del usuario
  */
 
-const express    = require('express')
 const postRouter = require('express').Router()  
 const PostController = require('../controllers/PostController')
 const { validarJWT } = require('../middleware/validarJWT')

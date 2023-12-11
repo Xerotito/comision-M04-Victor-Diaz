@@ -10,7 +10,7 @@ PostController.createPost = async (req,res) => {
     const { title, description, imageURL } = req.body
 
     try {
-        //Creamos el post a insertar en la bd con el modelo
+        //Creamos el post a insertar con los datos que espera el modelo
         const newPost = new Post({
             title,
             description,
