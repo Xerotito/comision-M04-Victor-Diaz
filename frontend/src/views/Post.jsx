@@ -1,20 +1,22 @@
 /**
  * Componente que muestra un post completo seleccionado desde la vista de tarjetas
  * los comentarios solo pueden verse si el usuario esta logueado.
+ *   
  */
 import { Suspense } from 'react'
 import { useParams } from 'react-router-dom'
 import { useGetPostID } from '../hooks/usePostController'
 import { CommentsSection } from '../components'
+import { postStore } from '../store'
 
 
 export default function Post() {
 
-    //Obtiene el id de la barra de direcciones 
-    const { postID } = useParams()
+    //Obtiene el id de la barra de direcciones, 
+    const { postID: idPost } = useParams()
 
-    //Custom hook realiza la llamada al endpoint para traer el currenPost
-    const { post } = useGetPostID(postID)
+    //Custom hook realiza la llamada al endpoint para traer el currenPost (Post cargado en vista actual)
+    const { post } = useGetPostID(idPost)
 
     return (
         <article className='grid w-full h-full bg-base-200'>
