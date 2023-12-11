@@ -2,8 +2,9 @@ import { useNavigate } from 'react-router-dom'
 import { ActionsPost }  from '../actions'
 
 export default function TargetLG ({lastPost}) {
+
     const navigate =  useNavigate()
-    const { _id: idPost, createdAt, description, imageURL, title, } = lastPost
+    const { _id: idPost, createdAt, description, imageURL, title } = lastPost
     const autorID = lastPost?.author?._id
 
     //Cortamos las descripción para mostrar en la tarjeta 

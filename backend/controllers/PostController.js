@@ -1,4 +1,9 @@
-const Post           = require('../models/Post')
+const Post = require('../models/Post')
+/**
+ * Usa el modelo de comments para rellenar la cantidad de comentarios, 
+ * el numero que se ve en cada post en la pagina principal cuando carga todos.
+ */
+const Comment        = require('../models/Comment')
 const PostController = {}
 
 //CREAR POST
@@ -31,12 +36,33 @@ PostController.createPost = async (req,res) => {
     }
 }
 
-//OBTENER TODOS LOS POSTS
+//OBTENER TODOS LOS POSTS Y CANTIDAD DE COMENTARIOS
 PostController.getAll = async (req, res) => {
     try {
-        //Simplemente busca todos los post en el documento de la BD
-        const findPost = await Post.find({},'-__v').populate('author','-password -__v')    
-        return res.status(200).json(findPost);
+        /**
+         * Los post al crearse no tienen comentarios, es por eso que primero los localizamos
+         */
+        const findPost = await Post.find({},'-__v').populate('author','-password -__v')
+
+        //Esta función se encarga de buscar los comentarios en la colección comments, de cada post correspondiente
+        const getCommentLength = async (id) => {
+            const commentsFound = await Comment.find({ post: id})
+            return commentsFound.length
+            
+        }
+        /**
+         * Por cada post cargado, si hay comentarios que correspondan con su id guardamos la cantidad todal
+         * para mostrar su numero en las tarjetas de cada post
+         */
+        findPost.map( async (post) => {
+                const numberComments = await getCommentLength(post._id)
+                await Post.findByIdAndUpdate(post._id, { $set: { comments: numberComments } });
+        })
+
+        //Al final lo que retornamos son los post con la cantidad de comentarios correspondientes
+        postAndComments = findPost
+
+        return res.status(200).json(postAndComments);
     } catch (err) {
         console.log(err)
         return res.status(500).json({ok:false, message: 'ocurrió un error'});

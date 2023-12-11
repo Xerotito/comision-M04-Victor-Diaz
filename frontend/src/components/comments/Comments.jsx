@@ -8,9 +8,10 @@ import {  useAddComment, useGetComments } from '../../hooks'
 export default function Comments({user}) {
 
     //CustomHook que agrega el comentario a la colección comments en mongo
-    const { addComment }  = useAddComment()
-    const { getComments } = useGetComments()
-
+    const { addComment } = useAddComment()
+    //CustomHook que carga los comentarios respectivos al post (estado local comments)
+    const { comments }   = useGetComments()
+    
     return (
         <>
         <div className='flex p-4 items-center'>

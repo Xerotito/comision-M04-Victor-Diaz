@@ -12,7 +12,7 @@ const { validarJWT } = require('../middleware/validarJWT')
 commentRouter.post('/create', validarJWT, commentController.createComment) // ./api/comment/create method: POST
 
 //Endpoint cargar todos los comentarios de un post
-commentRouter.get('/get', commentController.get)  // /.api/comment/id
+commentRouter.get('/:id', commentController.getComments)  // /.api/comment/id
 
 
 module.exports = commentRouter

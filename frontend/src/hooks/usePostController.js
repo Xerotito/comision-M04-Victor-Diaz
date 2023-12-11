@@ -1,13 +1,12 @@
 /**
- * Almacena los customHooks y funciones personalizadas que manejan todo los relacionado a los posteos (CRUD)
+ * Almacena los customHooks y funciones personalizadas que manejan todo los relacionado a los posteos (CRUD), incluyendo comentarios
  * Cada uno realiza la llamada al endpoint correspondiente y retorna los datos en un estado, 
- * si es necesario cargan los datos desde alguno de los stores globales. (manejo de estado global)
+ * si es necesario cargan los datos desde alguno de los stores globales. (manejo de estado global zustand) para luego renderizar los datos
  */
 
 import { useEffect, useState } from 'react'
 import requestApi from '../api/requestApi' //Configuración de axios, envía el token en cada request
 import { postStore } from '../store'
-
 
 //POST POR ID
 export function useGetPostID(postID) {        
@@ -76,13 +75,27 @@ export function useAddComment(){
 
 //OBTENER COMENTARIOS
 export function useGetComments () {
-    const { postID } = postStore()
     
-    const getComments = async () => {
-        console.log(postID)
-    }
+    /**
+     * Traemos del store global id de post actual, y el ultimo comentario el cual sera la dependencia del fetch de datos
+     * asi cuando se realize un nuevo comentario podemos re renderizar la lista comments
+     * Los comentarios son guardados en un estado local llamado comments
+     */
+    const { postID,lastComment } = postStore() 
+    
+    const [comments, setComments] = useState([])
 
-    getComments()
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const { data } = await requestApi.get(`/comment/${postID}`)
+                setComments(data)
+            } catch (erro) {
+                console.error('Error fetching post:', erro)
+            }
+        }
+        fetchData()
+    }, [lastComment])
 
-    return { getComments }
+    return { comments }
 }

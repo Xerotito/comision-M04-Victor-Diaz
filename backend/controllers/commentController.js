@@ -27,14 +27,15 @@ commentController.createComment = async (req,res) => {
 }
 
 //OBTENER COMENTARIOS POR ID DE POST 
-commentController.get = async (req,res) => {
+commentController.getComments = async (req,res) => {
     try {
         //Recibimos el id desde la barra de direcciones del navegador (params)
-        const { id } = req.body
+        const { id } = req.params
+
 
         //Ubicamos en la BD los comentarios por id del post al que le corresponden
         const commentsFound = await Comment.find({ post: id})
-        console.log( commentsFound)
+        
         //Retorna mediante JSON
         res.status(200).json(commentsFound)
     } catch (err) {

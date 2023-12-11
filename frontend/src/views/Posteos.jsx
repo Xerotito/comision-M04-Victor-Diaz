@@ -11,9 +11,10 @@ import requestApi from '../api/requestApi'
 
 export default function Posteos() {
     //Componente global muestra si hay algún error
-    const { alert, message }  = alertStore()
+    const { alert, message }  = alertStore()    
     const { posts, setPosts } = postStore()
 
+//Realiza el llamado al endpoint que trae todos los post y su cantidad de comentarios
 useEffect(() => {
     const fetchData = async () => {
         try {

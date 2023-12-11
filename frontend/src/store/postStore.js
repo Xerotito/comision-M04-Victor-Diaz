@@ -9,7 +9,7 @@ const postStore = create((set) => ({
     posts         : null,
     currentPost   : null,
     postID        : null,
-    lastComment   : null,
+    lastComment   : null, 
     setPosts      : (payload) => set((state) => ({ posts: payload })),
     setCurrentPost: (payload) => set((state) => ({ currentPost: payload })),
     setPostID     : (idPost) => set((state) => ({ postID: idPost })),
