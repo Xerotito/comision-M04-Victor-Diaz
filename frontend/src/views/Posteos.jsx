@@ -41,11 +41,6 @@ useEffect(() => {
     )
 }    
 
-//Se muestra si no hay posts
-const NoPosts = () => {
-    return  <h2 className="font-[bebas] text-xl w-[80%] border-2 border-black text-center mt-4 p-2 m-auto">No hay posts para mostrar</h2>
-}
-
 //Componente que renderiza los posts uno es la tarjeta principal que muestra el ultimo post
 const PostsTargets = ({ posts }) => {
     const {lastPost, nextPosts} = posts
@@ -63,4 +58,9 @@ const PostsTargets = ({ posts }) => {
             </div>
         </div>
     )
+}
+
+//Se muestra si no hay posts
+const NoPosts = () => {
+    return  <h2 className="font-[bebas] text-xl w-[80%] border-2 border-black text-center mt-4 p-2 m-auto">No hay posts para mostrar</h2>
 }

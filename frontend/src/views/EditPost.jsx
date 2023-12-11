@@ -22,11 +22,12 @@ export default function EditPost() {
      * como esta validación es del front y puede ser burlada, también hay una validación desde el back en caso de
      * que el post pudiera ser accedido.
      */
-    if (user?.uid !== post?.author) return <NoAuthor />
 
     return (
         <>
-            {post ? <EditPostForm post={post} /> : <NoPosts />}
+            { post 
+            ?  (user?.uid !== post?.author ? <NoAuthor /> : <EditPostForm post={post} />) /* Validación de autor */
+            : <NoPosts /> } {/* Si el id del post no se encuentra */}
         </>
     )
 }

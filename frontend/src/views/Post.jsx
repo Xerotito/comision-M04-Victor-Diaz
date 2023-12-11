@@ -5,6 +5,7 @@
 import { Suspense } from 'react'
 import { useParams } from 'react-router-dom'
 import { useGetPostID } from '../hooks/usePostController'
+import { CommentsSection } from '../components'
 
 
 export default function Post() {
@@ -28,6 +29,7 @@ export default function Post() {
                     <div className='divider divider-neutral'></div>
                 <pre className='text-xs sm:text-md lg:text-xl text-left mt-2'>{post?.description}</pre>
             </div>
+            <CommentsSection />
         </article>
     )
 } 

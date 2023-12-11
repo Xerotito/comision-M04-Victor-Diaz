@@ -5,12 +5,15 @@
 
 import { useEffect, useState } from 'react'
 import requestApi from '../api/requestApi' //Configuración de axios, envía el token en cada request
+import { userStore } from '../store'
 
 
 
 //POST POR ID
 export function useGetPostID(postID) {        
+ 
     const [post, setPost] = useState(null)
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -22,7 +25,7 @@ export function useGetPostID(postID) {
             }
         }
         fetchData()
-    }, [postID])
+    }, [])
 
     return { post }
 }
@@ -36,9 +39,7 @@ export async function useDeletePost(postID) {
         return true
     } catch (err) {
         console.error('Error fetching post:', err)
-    }   
-
-    
+    }       
 }
 
 
