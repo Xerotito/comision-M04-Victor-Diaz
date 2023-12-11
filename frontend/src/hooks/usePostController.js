@@ -5,15 +5,12 @@
 
 import { useEffect, useState } from 'react'
 import requestApi from '../api/requestApi' //Configuración de axios, envía el token en cada request
-import { userStore } from '../store'
-
 
 
 //POST POR ID
 export function useGetPostID(postID) {        
- 
-    const [post, setPost] = useState(null)
 
+    const [post, setPost] = useState(null)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -42,4 +39,16 @@ export async function useDeletePost(postID) {
     }       
 }
 
+//CREAR COMENTARIO
 
+export  function useAddComment(){
+
+    const addComment = (e) => {
+        e.preventDefault()
+        const formData = new FormData(e.target)
+        const comment = formData.get('comment')
+    }
+
+    return { addComment }
+
+}
