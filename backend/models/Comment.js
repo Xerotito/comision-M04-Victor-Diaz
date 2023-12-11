@@ -4,13 +4,16 @@ const CommentSchema = new mongoose.Schema({
     author: {
         type    : mongoose.Schema.Types.ObjectId,
         ref     : 'User',
-        required: [true, 'El autor es requerido'],
+        required: true,
     },
+    post:{ 
+        type    : mongoose.Schema.Types.ObjectId,
+        ref     : 'Post',
+        required: true,
+    },    
     description: {
-        type     : String,
-        required : [true, 'La descripción es requerida'],
-        minlength: [10, 'La descripción debe tener al menos 10 caracteres'],
-        maxlength: [500, 'La descripción no debe tener más de 500 caracteres'],
+        type    : String,
+        required: true,
     },
 })
 
