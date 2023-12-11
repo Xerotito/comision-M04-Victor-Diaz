@@ -5,16 +5,16 @@
 import { userStore } from '../store'
 import Comments from './comments/Comments'
 
-export default function CommentsSection() {
+export default function CommentsSection({postID}) {
 
     //Cargamos el usuarios y su estado del store global
-    const { userStatus, user } = userStore()
+    const { userStatus } = userStore()
 
     return (
         <div className='sub-container custom-box rounded-md' >
             {userStatus === 'not-authenticated' 
             ? <NotAuthenticated /> 
-            : <Comments user={ user }/>}
+            : <Comments postID={postID} />}
         </div>
     )
 }

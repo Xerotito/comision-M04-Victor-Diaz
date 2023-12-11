@@ -3,10 +3,10 @@
  * y tarjetas mas chicas para los anteriores, también se recarga cuando se elimina un post desde la vista principal.
  */
 
+import { useEffect } from 'react'
 import { Alert } from '../components/alerts'
 import { alertStore, postStore } from '../store'
 import { TargetLG, TargetSM } from '../components/posts'
-import { useEffect } from 'react'
 import requestApi from '../api/requestApi'
 
 export default function Posteos() {
@@ -29,8 +29,7 @@ useEffect(() => {
         }
     }    
     fetchData()
-}, [alert])        
-
+}, [alert])       
 
     return (
         <section className='grid bg-base-200 '>

@@ -5,19 +5,18 @@
  */
 import { Suspense } from 'react'
 import { useParams } from 'react-router-dom'
-import { useGetPostID } from '../hooks/usePostController'
 import { CommentsSection } from '../components'
-import { postStore } from '../store'
+import { useGetPostID } from '../hooks'
+
 
 
 export default function Post() {
 
     //Obtiene el id de la barra de direcciones, 
-    const { postID: idPost } = useParams()
+    const { postID } = useParams()
 
     //Custom hook realiza la llamada al endpoint para traer el currenPost (Post cargado en vista actual)
-    const { post } = useGetPostID(idPost)
-
+        const { post } = useGetPostID(postID)
     return (
         <article className='grid w-full h-full bg-base-200'>
             <div className='sub-container text-center '>
@@ -31,7 +30,7 @@ export default function Post() {
                     <div className='divider divider-neutral'></div>
                 <pre className='text-xs sm:text-md lg:text-xl text-left mt-2'>{post?.description}</pre>
             </div>
-            <CommentsSection />
+            <CommentsSection postID={postID}/>
         </article>
     )
 } 

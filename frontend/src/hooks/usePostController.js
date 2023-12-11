@@ -13,24 +13,22 @@ export function useGetPostID(postID) {
 
     /**
      * Los datos que retorna el backend son fijados en el store global de post
-     * de ahí se sirven a la app en donde se necesite,
-     * esto evita tener que pasar props entre varios componentes anidados facilitando la modularización
      */
 
-    const { currentPost: post, setCurrentPost, setPostID } = postStore()
+    const { currentPost: post, setCurrentPost } = postStore()
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                setPostID(postID) //Guardamos el id del post actual, esto nos evita pasarlo pro props muy anidadas
                 const { data } = await requestApi.get(`/post/${postID}`)
                 setCurrentPost(data)
+                
             } catch (erro) {
                 console.error('Error fetching post:', erro)
             }
         }
         fetchData()
-    }, [postID])
+    }, [])
 
     return { post }
 }
@@ -74,22 +72,23 @@ export function useAddComment(){
 }
 
 //OBTENER COMENTARIOS
-export function useGetComments () {
+export function useGetComments (postID) {    
     
     /**
      * Traemos del store global id de post actual, y el ultimo comentario el cual sera la dependencia del fetch de datos
      * asi cuando se realize un nuevo comentario podemos re renderizar la lista comments
      * Los comentarios son guardados en un estado local llamado comments
      */
-    const { postID,lastComment } = postStore() 
-    
+    const { lastComment } = postStore() 
+
     const [comments, setComments] = useState([])
 
     useEffect(() => {
         const fetchData = async () => {
+            // console.log(postID)
             try {
                 const { data } = await requestApi.get(`/comment/${postID}`)
-                setComments(data)
+                setComments(data.reverse())   
             } catch (erro) {
                 console.error('Error fetching post:', erro)
             }
@@ -98,4 +97,4 @@ export function useGetComments () {
     }, [lastComment])
 
     return { comments }
-}
+}   
