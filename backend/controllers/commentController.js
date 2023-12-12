@@ -34,7 +34,7 @@ commentController.getComments = async (req,res) => {
 
 
         //Ubicamos en la BD los comentarios por id del post al que le corresponden
-        const commentsFound = await Comment.find({ post: id})
+        const commentsFound = await Comment.find({ post: id}).populate('author')
         
         //Retorna mediante JSON
         res.status(200).json(commentsFound)

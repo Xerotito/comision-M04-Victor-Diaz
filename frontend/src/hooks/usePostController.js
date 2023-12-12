@@ -53,7 +53,7 @@ export function useAddComment(){
      * aunque solo usaremos el id, por defecto mongo lo guarda como ObjectId aunque sea todo el contenido del post
      */
 
-    const {currentPost:post, setLastComment} = postStore()
+    const {currentPost:post, setLastComment, lastComment} = postStore()
 
     const addComment = async (e) => {
         e.preventDefault()
@@ -62,8 +62,8 @@ export function useAddComment(){
         const comment =  { description, post }          //Crea el objeto a insertar en la BD comments
         try {
             //Enviamos la request al endpoint
-            const response = await requestApi.post('/comment/create', comment) 
-            if(response.data.ok) setLastComment(description)
+            await requestApi.post('/comment/create', comment) 
+            setLastComment(description)
         } catch (err) {
             console.log(err)
         }

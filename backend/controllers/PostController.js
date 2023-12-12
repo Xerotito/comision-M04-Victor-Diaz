@@ -47,21 +47,21 @@ PostController.getAll = async (req, res) => {
         //Esta función se encarga de buscar los comentarios en la colección comments, de cada post correspondiente
         const getCommentLength = async (id) => {
             const commentsFound = await Comment.find({ post: id})
-            return commentsFound.length
-            
+            return commentsFound.length            
         }
         /**
-         * Por cada post cargado, si hay comentarios que correspondan con su id guardamos la cantidad todal
+         * Por cada post cargado, si hay comentarios que correspondan con su id guardamos la cantidad total
          * para mostrar su numero en las tarjetas de cada post
-         */
-        findPost.map( async (post) => {
-                const numberComments = await getCommentLength(post._id)
-                await Post.findByIdAndUpdate(post._id, { $set: { comments: numberComments } });
-        })
+         */ 
+        const postAndComments = await Promise.all(
+            findPost.map(async (post) => {
+                const numberComments = await getCommentLength(post._id);
+                await Post.findByIdAndUpdate(post._id, { comments: numberComments });
+                return { ...post.toObject(), comments: numberComments }; //Se asegura de incluir los comentarios en el objeto que devuelve
+            })
+        );
 
         //Al final lo que retornamos son los post con la cantidad de comentarios correspondientes
-        postAndComments = findPost
-
         return res.status(200).json(postAndComments);
     } catch (err) {
         console.log(err)

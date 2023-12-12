@@ -6,10 +6,11 @@
 import { CommentForm } from '../forms/';
 import { Comment } from '../comments'
 import { useGetComments } from '../../hooks';
+import { postStore } from '../../store';
 
 export default function Comments({postID}) {
 
-    const { comments } = useGetComments(postID)    
+    const { comments } = useGetComments(postID)
 
     return (
         <>
