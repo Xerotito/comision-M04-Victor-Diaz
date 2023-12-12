@@ -55,7 +55,8 @@ export function useAddComment(){
      * aunque solo usaremos el id, por defecto mongo lo guarda como ObjectId aunque sea todo el contenido del post
      */
 
-    const {currentPost:post, setLastComment, lastComment} = postStore()
+    const { currentPost: post, setStatusComment } = postStore()
+
 
     const addComment = async (e) => {
         e.preventDefault()
@@ -65,7 +66,7 @@ export function useAddComment(){
         try {
             //Enviamos la request al endpoint
             await requestApi.post('/comment/create', comment) 
-            setLastComment(description)
+            setStatusComment('create') //Dependencia de carga de comentarios (useEffect)
             e.target.reset()
         } catch (err) {
             console.log(err)
@@ -82,7 +83,7 @@ export function useGetComments (postID) {
      * asi cuando se realize un nuevo comentario podemos re renderizar la lista comments
      * Los comentarios son guardados en un estado local llamado comments
      */
-    const { lastComment } = postStore() 
+    const { statusComment } = postStore() 
 
     const [comments, setComments] = useState([])
 
@@ -97,7 +98,27 @@ export function useGetComments (postID) {
             }
         }
         fetchData()
-    }, [lastComment])
+    //Dependencia que actualiza los comentarios, ya sea cuando se crea ,elimina o edita
+    }, [statusComment]) 
 
     return { comments }
 }   
+
+//ELIMINAR COMENTARIOS
+
+export function useDeleteComment () {  
+
+    const { setStatusComment } = postStore()
+
+    const deleteComment = async (commentID) => {
+        try {
+            //Enviamos la request al endpoint para eliminar post
+            await requestApi.delete('/comment/delete', { data: { id: commentID } }) 
+            setStatusComment('delete')  //Dependencia de carga de comentarios (useEffect)            
+        } catch (err) {
+            console.log('Hubo un error al intentar eliminar el post',err)
+        }
+    }
+    return { deleteComment } 
+    
+}

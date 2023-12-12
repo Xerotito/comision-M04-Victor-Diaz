@@ -5,6 +5,7 @@
  */
 
 const commentRouter = require('express').Router()
+const PostController = require('../controllers/PostController')
 const commentController = require('../controllers/commentController')
 const { validarJWT } = require('../middleware/validarJWT')
 
@@ -13,6 +14,9 @@ commentRouter.post('/create', validarJWT, commentController.createComment) // ./
 
 //Endpoint cargar todos los comentarios de un post
 commentRouter.get('/:id', commentController.getComments)  // /.api/comment/id
+
+//Endpoint para eliminar un comentario por id
+commentRouter.delete('/delete', validarJWT, commentController.deleteComment)
 
 
 module.exports = commentRouter

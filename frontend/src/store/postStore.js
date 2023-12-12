@@ -9,13 +9,12 @@ const postStore = create((set) => ({
     posts         : null,
     currentPost   : null,
     postID        : null,
-    lastComment   : null, 
+    statusComment : '',     // crate | edit | delete
     setPosts      : (payload) => set((state) => ({ posts: payload })),
     setCurrentPost: (payload) => set((state) => ({ currentPost: payload })),
     setPostID     : (idPost) => set((state) => ({ postID: idPost })),
     resetPostID   : () => set((state) => ({ postID: null })),
-    setLastComment: (comment) => set((state) => ({ lastComment: comment })),
-
+    setStatusComment: (status) => set((state) => ({ statusComment: status })),
 }))
 
 export default postStore

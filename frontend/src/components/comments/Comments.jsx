@@ -6,7 +6,6 @@
 import { CommentForm } from '../forms/';
 import { Comment } from '../comments'
 import { useGetComments } from '../../hooks';
-import { postStore } from '../../store';
 
 export default function Comments({postID}) {
 
@@ -29,9 +28,3 @@ export default function Comments({postID}) {
         </>
     )
 }
-
-
-{/* <form onSubmit={addComment} className='grid w-full'>
-<textarea name='description' className="textarea textarea-accent w-full mb-2" placeholder="Escribe un comentario..."></textarea>
-<button className="btn btn-sm btn-outline btn-info sm:w-fit justify-self-end">Enviar comentario</button>
-</form> */}

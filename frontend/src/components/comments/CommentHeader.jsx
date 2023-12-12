@@ -4,9 +4,14 @@
  * Los botones de control de comentario solo son visibles para el autor del comentario
  */
 
+import { useDeleteComment } from '../../hooks'
 import { userStore } from '../../store'
 
-export default function CommentHeader({author, commentID}) {
+export default function CommentHeader({commentID, author}) {
+
+    //CustomHook con la función de eliminar un comentario
+    const { deleteComment } = useDeleteComment()
+
     //Variables que utiliza para renderizado condicional
     let authorName = ''
     let owner = false
@@ -15,7 +20,7 @@ export default function CommentHeader({author, commentID}) {
     //Si el author es el mismo usuario que creo el comentario
     user.uid === author._id
         ? ((authorName = 'tu'), (owner = true))
-        : ((authorName = author.username), (owner = false))
+        : ((authorName = author.username), (owner = false))    
 
     return (
         <>
@@ -35,7 +40,7 @@ export default function CommentHeader({author, commentID}) {
                         </button>
                     </div>
                     <div className='tooltip' data-tip='Eliminar comentario'>
-                        <button className='sm:text-2xl leading-none'>❌</button>
+                        <button className='sm:text-2xl leading-none' onClick={()=> deleteComment(commentID)}>❌</button>
                     </div>
                 </div>
             )}

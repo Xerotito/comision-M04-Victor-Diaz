@@ -46,16 +46,24 @@ commentController.getComments = async (req,res) => {
     }
 }
 
-
-
-
-
-
-
-
-
-
-
+//ELIMINAR COMENTARIO
+commentController.deleteComment = async (req,res) => {
+    try {
+        //Solo necesitamos el id del front
+        const { id } = req.body    
+        
+        //Encontramos el post por id en la BD y con el mismo método de mongoose eliminamos
+        await Comment.findByIdAndDelete(id)
+    
+        res.status(200).json({ok: true, message: 'El comentario se elimino exitosamente'})
+    
+        } catch (err) {
+            res.status(500).json({
+                ok     : false,
+                message: 'Hubo un error al intentar eliminar el comentario'
+            })    
+        }
+}
 
 
 module.exports = commentController

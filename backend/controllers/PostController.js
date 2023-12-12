@@ -23,7 +23,7 @@ PostController.createPost = async (req,res) => {
             imageURL,
         })
 
-        const createPost = await newPost.save() //método mongoose para guardar en su db
+        const createPost = await newPost.save() //método mongoose para guardar en BD
 
         //Si se inserto exitosamente en db
         res.status(201).json({
