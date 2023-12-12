@@ -44,24 +44,29 @@ PostController.getAll = async (req, res) => {
          */
         const findPost = await Post.find({},'-__v').populate('author','-password -__v')
 
-        //Esta función se encarga de buscar los comentarios en la colección comments, de cada post correspondiente
+        /**
+         * Función que se encarga de buscar los comentarios en la colección comments, y encontrar los que corresponde por id
+         * al post que esta iterando (ya que vamos a cargar todos los posts)
+         * esta función se llama cuando se itera todos los post
+         */
         const getCommentLength = async (id) => {
             const commentsFound = await Comment.find({ post: id})
             return commentsFound.length            
         }
         /**
-         * Por cada post cargado, si hay comentarios que correspondan con su id guardamos la cantidad total
+         * Iteramos en todos los posts.
+         * Por cada post cargado, si hay comentarios que correspondan con su id (getCommentLength) guardamos la cantidad total
          * para mostrar su numero en las tarjetas de cada post
          */ 
-        const postAndComments = await Promise.all(
+        const postAndComments = await Promise.all( //Espera que todas las promesas se cumplan
             findPost.map(async (post) => {
-                const numberComments = await getCommentLength(post._id);
-                await Post.findByIdAndUpdate(post._id, { comments: numberComments });
-                return { ...post.toObject(), comments: numberComments }; //Se asegura de incluir los comentarios en el objeto que devuelve
+                const numberComments = await getCommentLength(post._id)   
+                await Post.findByIdAndUpdate(post._id, { comments: numberComments }) //Guardamos en la bd Comments la cantidad de comentarios de el post iterado
+                return { ...post.toObject(), comments: numberComments }              //Se asegura de incluir los comentarios en el objeto que devuelve
             })
-        );
+        )
 
-        //Al final lo que retornamos son los post con la cantidad de comentarios correspondientes
+        //Al final lo que retornamos son todos los post con la cantidad de comentarios correspondientes
         return res.status(200).json(postAndComments);
     } catch (err) {
         console.log(err)

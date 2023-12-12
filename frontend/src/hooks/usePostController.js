@@ -45,6 +45,8 @@ export async function useDeletePost(postID) {
     }       
 }
 
+/* --------------------------------------------- COMENTARIOS -------------------------------------------------- */
+
 //CREAR COMENTARIO
 export function useAddComment(){
 
@@ -64,11 +66,12 @@ export function useAddComment(){
             //Enviamos la request al endpoint
             await requestApi.post('/comment/create', comment) 
             setLastComment(description)
+            e.target.reset()
         } catch (err) {
             console.log(err)
         }
     }
-    return { addComment }
+    return { addComment }   
 }
 
 //OBTENER COMENTARIOS

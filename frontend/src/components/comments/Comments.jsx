@@ -16,14 +16,15 @@ export default function Comments({postID}) {
         <>
         {/* El formulario para agregar un comentario */}
         <CommentForm/> 
-        { comments.map(comment => 
-        /* El componente con el comentario que se agrega por casa comentario */
-        
-        <Comment 
-        key         = {comment?._id}
-        author      = {comment?.author}
-        description = {comment?.description}
-        /> 
+
+        {/* Itera por cada comentario que hay en el post y lo renderiza */}
+        { comments.map(comment =>     
+            <Comment
+                key         = {comment?._id}
+                author      = {comment?.author}
+                description = {comment?.description}
+                commentID   = {comment?._id}
+            /> 
         )}      
         </>
     )

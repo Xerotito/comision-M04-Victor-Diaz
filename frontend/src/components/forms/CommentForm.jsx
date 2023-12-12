@@ -7,7 +7,7 @@ import {  useAddComment } from '../../hooks'
 
 export default function CommentForm() {
 
-        //CustomHook que llama a la fn que guarda el comentario en la bd colección comments
+        //CustomHook que llama a la fn que guarda el comentario en la BD colección comments
         const { addComment } = useAddComment()
     
     return (
@@ -20,7 +20,7 @@ export default function CommentForm() {
             <div className="w-full">
                 <form onSubmit={addComment} className='chat-bubble w-full max-w-full relative'>
                     <textarea name='description' className="textarea bg-transparent w-full p-0  " placeholder="Escribe un comentario..."></textarea>
-                    <button className="btn btn-xs sm:btn-sm btn-outline btn-info sm:w-fit absolute right-8 bottom-5">Agregar Comentario</button>
+                    <button className="btn btn-xs sm:btn-sm btn-outline btn-info sm:w-fit absolute right-4 bottom-2">Agregar Comentario</button>
                 </form>
             </div>
         </div>
