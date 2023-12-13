@@ -46,6 +46,14 @@ commentController.getComments = async (req,res) => {
     }
 }
 
+//EDITAR COMENTARIO
+commentController.editComment = async (req,res) => {
+    const { id } = req.body
+    console.log(id)
+
+    res.status(200).json('ok')
+}
+
 //ELIMINAR COMENTARIO
 commentController.deleteComment = async (req,res) => {
     try {
