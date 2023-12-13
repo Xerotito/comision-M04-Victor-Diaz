@@ -48,10 +48,21 @@ commentController.getComments = async (req,res) => {
 
 //EDITAR COMENTARIO
 commentController.editComment = async (req,res) => {
-    const { id } = req.body
-    console.log(id)
+    //Recibimos por body el texto a editar y el id del comentario
+    const {description,id} = req.body
 
-    res.status(200).json('ok')
+    //Localizamos el comentario en la BD por id
+    const foundComment = await Comment.findById(id)
+
+    //Comparamos que el autor sea el mismo del que recibimos de la validación de token
+    if (foundComment.author.toString() !== req.uid)
+        return res
+            .status(403)
+            .json({ ok: false, message: 'Debe ser el autor del comentario para editarlo' })
+
+    //Si el autor es el mismo editamos el post y respondemos
+    await Comment.findByIdAndUpdate(id, { description })
+    res.status(200).json({ ok: true, message: 'Comentario editado exitosamente' })
 }
 
 //ELIMINAR COMENTARIO

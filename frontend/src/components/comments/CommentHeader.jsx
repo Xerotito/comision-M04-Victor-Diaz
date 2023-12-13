@@ -39,10 +39,10 @@ export default function CommentHeader({commentID, author}) {
                         {
                             /**
                              * Alterna entre el botón de transformar el textarea en editable, y el botón de enviar el comentario editado
-                             * también se asegura que estos renderizados condicionales se muestren solo en el html en el que se clickea
+                             * también se asegura que estos renderizados condicionales se muestren solo en el componente que se clickea
                              */
                             thisCommentID === commentID && statusComment === 'edit' 
-                            ?<button className='sm:text-2xl leading-none mr-2' onClick={()=> changeState(commentID,'send')}>Edit</button>
+                            ?<button className='btn btn-xs sm:btn-sm btn-outline btn-info mr-2' onClick={()=> changeState(commentID,'send')}>Editar</button>
                             :<button className='sm:text-2xl leading-none mr-2' onClick={()=> changeState(commentID,'edit')}>📝</button>
                         }
                     </div>

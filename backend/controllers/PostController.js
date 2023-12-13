@@ -123,7 +123,6 @@ PostController.editPost = async (req, res) => {
     }
 }
 
-
 //ELIMINAR POST
 PostController.deletePost = async (req, res) => {
     try {
