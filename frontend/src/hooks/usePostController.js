@@ -6,7 +6,7 @@
 
 import { useEffect, useState } from 'react'
 import requestApi from '../api/requestApi' //Configuración de axios, envía el token en cada request
-import { postStore } from '../store'
+import { postStore, userStore } from '../store'
 
 //POST POR ID
 export function useGetPostID(postID) {        
@@ -104,11 +104,26 @@ export function useGetComments (postID) {
     return { comments }
 }   
 
-//ELIMINAR COMENTARIOS
+//EDITAR COMENTARIO 
+export function useEditComment () {
+    
+    const { setThisCommentID, setStatusComment } = postStore()
 
+    /**
+     * Setea el post actual al que se le hizo click (Nos ahorra luego iterar un array ) 
+     * y pone el statusComment en edit (util en renderizado condicional)
+     */
+    const changeState = (id) => { setThisCommentID(id), setStatusComment('edit') } 
+    
+    //Se encarga del hacer el request al endpoint
+
+    return { changeState }
+}
+//ELIMINAR COMENTARIOS
 export function useDeleteComment () {  
 
     const { setStatusComment } = postStore()
+    const { user }             = userStore()
 
     const deleteComment = async (commentID) => {
         try {
@@ -119,6 +134,6 @@ export function useDeleteComment () {
             console.log('Hubo un error al intentar eliminar el post',err)
         }
     }
-    return { deleteComment } 
+    return { deleteComment, user } 
     
 }

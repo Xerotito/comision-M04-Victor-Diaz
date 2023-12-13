@@ -4,20 +4,21 @@
  * Los botones de control de comentario solo son visibles para el autor del comentario
  */
 
-import { useDeleteComment } from '../../hooks'
-import { userStore } from '../../store'
+import { useDeleteComment, useEditComment } from '../../hooks'
+import { postStore, userStore } from '../../store'
 
 export default function CommentHeader({commentID, author}) {
 
-    //CustomHook con la función de eliminar un comentario
-    const { deleteComment } = useDeleteComment()
+    //CustomHooks con datos de los stores globales
+    const { deleteComment, user }         = useDeleteComment() //Cuenta con la fn de eliminar comentario
+    const {  changeState }                = useEditComment()   
+    const { statusComment, thisCommentID} = postStore()        //Valores seteados por useEditComment para renderizado condicional
 
     //Variables que utiliza para renderizado condicional
     let authorName = ''
-    let owner = false
-    const { user } = userStore() 
+    let owner      = false
 
-    //Si el author es el mismo usuario que creo el comentario
+    //Si el author es el mismo usuario que creo el comentario (setea para renderizado condicional)
     user.uid === author._id
         ? ((authorName = 'tu'), (owner = true))
         : ((authorName = author.username), (owner = false))    
@@ -35,9 +36,15 @@ export default function CommentHeader({commentID, author}) {
                 border border-sky-500 hover:bg-blue-500 rounded-lg
                 '>
                     <div className='tooltip' data-tip='Editar comentario'>
-                        <button className='sm:text-2xl leading-none mr-2'>
-                            📝
-                        </button>
+                        {
+                            /**
+                             * Alterna entre el botón de transformar el textarea en editable, y el botón de enviar el comentario editado
+                             * también se asegura que estos renderizados condicionales se muestren solo en el html en el que se clickea
+                             */
+                            thisCommentID === commentID && statusComment === 'edit' 
+                            ?<button className='sm:text-2xl leading-none mr-2' onClick={()=> changeState(commentID,'send')}>Edit</button>
+                            :<button className='sm:text-2xl leading-none mr-2' onClick={()=> changeState(commentID,'edit')}>📝</button>
+                        }
                     </div>
                     <div className='tooltip' data-tip='Eliminar comentario'>
                         <button className='sm:text-2xl leading-none' onClick={()=> deleteComment(commentID)}>❌</button>

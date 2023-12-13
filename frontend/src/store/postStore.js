@@ -6,14 +6,16 @@
 import { create } from 'zustand'
 
 const postStore = create((set) => ({
-    posts         : null,
-    currentPost   : null,
-    postID        : null,
-    statusComment : '',     // crate | edit | delete
-    setPosts      : (payload) => set((state) => ({ posts: payload })),
-    setCurrentPost: (payload) => set((state) => ({ currentPost: payload })),
-    setPostID     : (idPost) => set((state) => ({ postID: idPost })),
-    resetPostID   : () => set((state) => ({ postID: null })),
+    posts           : null,
+    currentPost     : null,
+    postID          : null,
+    thisCommentID   : null,
+    statusComment   : '',                                                              // crate | edit | delete
+    setPosts        : (payload) => set((state) => ({ posts: payload })),
+    setCurrentPost  : (payload) => set((state) => ({ currentPost: payload })),
+    setPostID       : (idPost) => set((state) => ({ postID: idPost })),
+    setThisCommentID: (idComment) => set((state) => ({ thisCommentID: idComment })),
+    resetPostID     : () => set((state) => ({ postID: null })),
     setStatusComment: (status) => set((state) => ({ statusComment: status })),
 }))
 
