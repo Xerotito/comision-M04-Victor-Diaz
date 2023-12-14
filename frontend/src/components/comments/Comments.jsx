@@ -11,6 +11,7 @@ export default function Comments({postID}) {
 
     const { comments } = useGetComments(postID)
 
+
     return (
         <>
         {/* El formulario para agregar un comentario */}

@@ -6,12 +6,12 @@
 
 const perfilRouter     = require('express').Router()
 const perfilController = require('../controllers/perfilController')
-const { validarJWT } = require('../middleware/validarJWT')
+const { validarJWT }   = require('../middleware/validarJWT')
 
 
 
 //Modifica el nombre de usuario
-perfilRouter.put('/changeUsername', validarJWT, perfilController.changeUsername) // ./api/perfil/changeUsername 
+perfilRouter.put('/changePerfil', validarJWT, perfilController.changePerfil) // ./api/perfil/changeUsername 
 
 
 

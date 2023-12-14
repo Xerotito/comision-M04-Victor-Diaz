@@ -8,6 +8,7 @@ const generateJWT = (uid, username, email, avatarURL) => {
 
     const JWT_KEY = process.env.JWT_KEY
     const payload = { uid, username, email, avatarURL }
+    console.log({payload})
 
     return jwt.sign(payload, JWT_KEY, {expiresIn: '7d'}) //(seven days =D )
 

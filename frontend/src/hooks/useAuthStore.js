@@ -41,7 +41,7 @@ export default function useAuthStore() {
         }
     }
 
-    //LOGIN & REGISTER
+    //LOGIN & REGISTER (También se utiliza al cambiar nombre de usuario o imagen de perfil)
     const startLogin = (userData, token) => {
         onChecking()
         saveUser(userData)

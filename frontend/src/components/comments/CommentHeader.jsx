@@ -19,7 +19,7 @@ export default function CommentHeader({commentID, author}) {
     let owner      = false
 
     //Si el author es el mismo usuario que creo el comentario (setea para renderizado condicional)
-    user.uid === author._id
+    user?.uid === author?._id
         ? ((authorName = 'tu'), (owner = true))
         : ((authorName = author.username), (owner = false))    
 

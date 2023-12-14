@@ -57,12 +57,10 @@ export function useGetComments (postID) {
      */
     const { statusComment } = postStore() 
     const [comments, setComments] = useState([])
-
     
     useEffect(() => {
         console.log(statusComment)
         const fetchData = async () => {
-            // console.log(postID)
             try {
                 const { data } = await requestApi.get(`/comment/${postID}`)
                 setComments(data.reverse())   

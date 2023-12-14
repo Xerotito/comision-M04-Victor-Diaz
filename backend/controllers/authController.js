@@ -9,6 +9,7 @@ const bcrypt         = require('bcryptjs')
 const generateJWT    = require('../libs/jwt')
 const authController = {}
 
+
 //REGISTER
 authController.createUser = async (req,res) => {
     try {
@@ -23,8 +24,8 @@ authController.createUser = async (req,res) => {
         const newUser = new User({
             username,
             email,
-            avatarURL,
-            password: hashedPassword,
+            avatarURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8PyKYrBKAWWy6YCbQzWQcwIRqH8wYMPluIZiMpV1w0NYSbocTZz0ICWFkLcXhaMyvCwQ&usqp=CAU',
+            password : hashedPassword,
         })
         const createUserDB = await newUser.save() // método mongoose para guardar en su bd
         

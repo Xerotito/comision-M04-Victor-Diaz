@@ -13,8 +13,12 @@ import { CreatePost,EditPost } from '../views'
 export default function AppRouter() {
 
     const { validateUser }      = useAuthStore()  //Store con acciones de autentificación
-    const {  user, userStatus } = userStore()     //Store con información del usuario activo 
-    useEffect( () => { validateUser() }, [] )     //Fn que carga el usuario en sesión si el token no expiro o se modifico.
+    const { user, userStatus } = userStore()     //Store con información del usuario activo 
+    
+    /*Fn que carga el usuario en sesión si el token no expiro o se modifico,
+    se recarga si hay un cambio en el perfil (username o avatar)             */
+    useEffect( () => { validateUser() }, [] )    
+
 
     if (userStatus === 'checking') return <Loader/>
 

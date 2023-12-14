@@ -8,8 +8,8 @@
 import { create } from 'zustand'
 
 const userStore = create((set) => ({
-    user            : {},
-    userStatus      : 'not-authenticated',   // 'authenticated', 'not-authenticated', 'checking'
+    user           : {},
+    userStatus     : 'not-authenticated',   // 'authenticated', 'not-authenticated', 'checking'
     showPerfilModal: false,
 
     saveUser         : (userData) => set(state => ({ user: userData, userStatus: 'authenticated' })),

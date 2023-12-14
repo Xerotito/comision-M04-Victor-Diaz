@@ -4,15 +4,17 @@
  */
 
 import { useRef } from 'react'
-import { postStore } from '../../store'
+import { postStore, userStore } from '../../store'
 import { useEditComment } from '../../hooks'
 
-export default function CommentBody({ commentID , description }) {
+export default function CommentBody({ commentID, author, description }) {
+
     let   editable                         = true
+    let image
     const { thisCommentID, statusComment } = postStore()
+    const { user }                         = userStore()
     const { sendEditComment }              = useEditComment()
     const sendButton                       = useRef(null)
-
 
     /**
      * Esto hace que el textarea editable solo sea aquel del componente al que se le hace click en el botón editar
@@ -30,7 +32,7 @@ export default function CommentBody({ commentID , description }) {
                 <div className='w-10 md:w-16 rounded-full'>
                     <img
                         alt='imagen-avatar'
-                        src='https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg'
+                        src={author?.avatarURL}
                     />
                 </div>
             </div>
