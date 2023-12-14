@@ -8,8 +8,6 @@ import { useParams } from 'react-router-dom'
 import { CommentsSection } from '../components'
 import { useGetPostID } from '../hooks'
 
-
-
 export default function Post() {
 
     //Obtiene el id de la barra de direcciones, 

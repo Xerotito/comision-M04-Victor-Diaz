@@ -3,6 +3,7 @@
  */
 import { Link } from 'react-router-dom';
 import { Avatar } from './buttons';
+import {ChangePerfil} from './';
 
 export default function NavBar({ user }) {
 
@@ -13,7 +14,14 @@ export default function NavBar({ user }) {
     return (
         <nav className='navbar flex justify-center bg-base-300'>
             <div className='nav-container w-[98%] border border-gray-400 rounded-md shadow-lg relative'>
+
+                {/* Circulo con imagen de perfil es un btn que despliega <ChangePerfil />  */}
                 <Avatar avatar={avatarURL} />
+
+                {/* Modal para cambiar de perfil (usuario e imagen) */}
+                <ChangePerfil />
+
+                {/* Barra de navegación */}
                 <div className='flex items-center w-full'>
                     <h2 className='hidden sm:btn sm:btn-ghost text-base sm:text-xl ml-14 pointer-events-none '>{username}</h2>
                     <ul className='

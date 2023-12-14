@@ -2,6 +2,8 @@
  * Sección de comentarios, solo si el usuarios esta logueado podrá ver los comentarios 
  */
 
+import { useEffect, useRef } from 'react'
+import { useLocation } from 'react-router-dom'
 import { userStore } from '../store'
 import Comments from './comments/Comments'
 
@@ -9,9 +11,21 @@ export default function CommentsSection({postID}) {
 
     //Cargamos el usuarios y su estado del store global
     const { userStatus } = userStore()
+    const commentsRef    = useRef(null)
+    const location       = useLocation() //Se usa para capturar el hash de la barra de direcciones
+
+    /**
+     * Si venimos del botón de comentarios del index, hay un problema y es que no llega a renderizar la sección de comentarios
+     * tan rápido, por eso usamos un pequeño delay, para luego saltar a los comentarios
+     */
+    useEffect(() => {
+        if (location.hash === `#comments`) {
+            setTimeout(() => { commentsRef.current.scrollIntoView({ behavior: 'smooth' }) }, 500)
+        }
+    }, [location])
 
     return (
-        <div className='sub-container custom-box rounded-md' >
+        <div id='comments' ref={commentsRef} className='sub-container custom-box rounded-md' >
             {userStatus === 'not-authenticated' 
             ? <NotAuthenticated /> 
             : <Comments postID={postID} />}
