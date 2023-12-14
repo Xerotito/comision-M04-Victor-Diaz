@@ -8,12 +8,15 @@
 import { create } from 'zustand'
 
 const userStore = create((set) => ({
-    user : {},
-    userStatus:'not-authenticated',  // 'authenticated', 'not-authenticated', 'checking'
+    user            : {},
+    userStatus      : 'not-authenticated',   // 'authenticated', 'not-authenticated', 'checking'
+    showPerfilModal: false,
 
-    saveUser  : (userData) => set(state => ({ user: userData, userStatus: 'authenticated' })),
-    onChecking: () => set( state => ({ ...state.user, userStatus: 'checking' })),
-    onLogout  : () => set(state => ({ user: {},userStatus: 'not-authenticated' }))
+    saveUser         : (userData) => set(state => ({ user: userData, userStatus: 'authenticated' })),
+    onChecking       : () => set( state => ({ ...state.user, userStatus: 'checking' })),
+    onLogout         : () => set(state => ({ user: {},userStatus: 'not-authenticated' })),
+    togglePerfilModal: () => set(state => ({ showPerfilModal: !state.showPerfilModal })),
+    
 }))
 
 export default userStore

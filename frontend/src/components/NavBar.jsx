@@ -4,12 +4,17 @@
 import { Link } from 'react-router-dom';
 import { Avatar } from './buttons';
 import {ChangePerfil} from './';
+import { useChangePerfil } from '../hooks';
 
 export default function NavBar({ user }) {
 
+    //CustomHook controla todo lo relacionado a cambio de perfil (usuario e imagen)
+    const { showPerfilModal } = useChangePerfil()
+    
     //información del usuario en sesión
     let { username, avatarURL } = user 
     if (!avatarURL) avatarURL = 'default_avatar.png' //Si el usuario no tiene una imagen definida de avatar cargamos la default
+
 
     return (
         <nav className='navbar flex justify-center bg-base-300'>
@@ -19,7 +24,7 @@ export default function NavBar({ user }) {
                 <Avatar avatar={avatarURL} />
 
                 {/* Modal para cambiar de perfil (usuario e imagen) */}
-                <ChangePerfil />
+                { showPerfilModal && <ChangePerfil />}
 
                 {/* Barra de navegación */}
                 <div className='flex items-center w-full'>

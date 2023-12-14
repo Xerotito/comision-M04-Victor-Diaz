@@ -10,9 +10,6 @@ import { AuthForms, Post, Posteos } from '../views'
 import { Loader } from '../components/'
 import { CreatePost,EditPost } from '../views'
 
-
-
-
 export default function AppRouter() {
 
     const { validateUser }      = useAuthStore()  //Store con acciones de autentificación
