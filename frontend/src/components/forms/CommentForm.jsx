@@ -3,18 +3,21 @@
  */
 
 import {  useAddComment } from '../../hooks'
+import { userStore } from '../../store'
 
 
 export default function CommentForm() {
 
-        //CustomHook que llama a la fn que guarda el comentario en la BD colección comments
-        const { addComment } = useAddComment()
+    const { user } = userStore()        
+    console.log(user)
+    //CustomHook que llama a la fn que guarda el comentario en la BD colección comments
+    const { addComment } = useAddComment()
     
     return (
         <div className="chat chat-start w-full py-2 px-4 flex">
             <div className="chat-image avatar hidden md:block">
                 <div className="w-10 md:w-16 rounded-full">
-                    <img alt="imagen-avatar" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                    <img alt="imagen-avatar" src={user?.avatarURL} />
                 </div>
             </div>
             <div className="w-full">

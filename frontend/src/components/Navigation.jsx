@@ -1,3 +1,4 @@
+/* Componente dentro de la barra de navegación, cuenta con el nombre de usuario y los links de navegación */
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 

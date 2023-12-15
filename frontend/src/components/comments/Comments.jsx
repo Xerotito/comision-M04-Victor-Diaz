@@ -9,8 +9,8 @@ import { useGetComments } from '../../hooks';
 
 export default function Comments({postID}) {
 
+    //CustomHook con hooks y funciones de posteos
     const { comments } = useGetComments(postID)
-
 
     return (
         <>
